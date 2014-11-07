@@ -518,6 +518,8 @@ Discarded input sections
  .text          0x00000000        0x0 ..\obj\main.o
  .data          0x00000000        0x0 ..\obj\main.o
  .bss           0x00000000        0x0 ..\obj\main.o
+ .text.XXX_Configuration
+                0x00000000        0xc ..\obj\main.o
  .text          0x00000000        0x0 ..\obj\stm32_ub_fatfs.o
  .data          0x00000000        0x0 ..\obj\stm32_ub_fatfs.o
  .bss           0x00000000      0x234 ..\obj\stm32_ub_fatfs.o
@@ -765,20 +767,18 @@ Discarded input sections
  .data          0x00000000        0x0 ..\obj\tim_pwm.o
  .bss           0x00000000        0x0 ..\obj\tim_pwm.o
  .text.TIM_pwm_Configuration
-                0x00000000      0x3b8 ..\obj\tim_pwm.o
- .text.Init_Motor
-                0x00000000       0x7c ..\obj\tim_pwm.o
- .debug_info    0x00000000      0x620 ..\obj\tim_pwm.o
+                0x00000000      0x300 ..\obj\tim_pwm.o
+ .debug_info    0x00000000      0x5fc ..\obj\tim_pwm.o
  .debug_abbrev  0x00000000      0x112 ..\obj\tim_pwm.o
  .debug_aranges
-                0x00000000       0x28 ..\obj\tim_pwm.o
- .debug_ranges  0x00000000       0x18 ..\obj\tim_pwm.o
- .debug_line    0x00000000      0x241 ..\obj\tim_pwm.o
- .debug_str     0x00000000      0x621 ..\obj\tim_pwm.o
+                0x00000000       0x20 ..\obj\tim_pwm.o
+ .debug_ranges  0x00000000       0x10 ..\obj\tim_pwm.o
+ .debug_line    0x00000000      0x216 ..\obj\tim_pwm.o
+ .debug_str     0x00000000      0x616 ..\obj\tim_pwm.o
  .comment       0x00000000       0x47 ..\obj\tim_pwm.o
  .ARM.attributes
                 0x00000000       0x33 ..\obj\tim_pwm.o
- .debug_frame   0x00000000       0x50 ..\obj\tim_pwm.o
+ .debug_frame   0x00000000       0x30 ..\obj\tim_pwm.o
  .text          0x00000000        0x0 ..\obj\stm32_ub_sdcard.o
  .data          0x00000000        0x0 ..\obj\stm32_ub_sdcard.o
  .text.UB_SDCard_Init
@@ -2285,7 +2285,7 @@ LOAD c:/users/hikaru/mentorgraphics/sourcery_codebench_lite_for_arm_eabi/bin/../
 END GROUP
 OUTPUT(stm32f4_2LayerBoard.elf elf32-littlearm)
 
-.debug_info     0x00000000    0x15d4d
+.debug_info     0x00000000    0x15d5e
  .debug_info    0x00000000     0x24ef ..\obj\usb_core.o
  .debug_info    0x000024ef      0x7d4 ..\obj\stm32f4xx_sdio.o
  .debug_info    0x00002cc3     0x1044 ..\obj\stm32f4_discovery_audio_codec.o
@@ -2293,28 +2293,28 @@ OUTPUT(stm32f4_2LayerBoard.elf elf32-littlearm)
  .debug_info    0x0000469d      0x60e ..\obj\stm32f4xx_dac.o
  .debug_info    0x00004cab       0xed ..\obj\startup_stm32f4xx.o
  .debug_info    0x00004d98      0xe69 ..\obj\usbd_core.o
- .debug_info    0x00005c01     0x129e ..\obj\main.o
- .debug_info    0x00006e9f      0xc21 ..\obj\stm32f4xx_rcc.o
- .debug_info    0x00007ac0      0xeee ..\obj\stm32f4xx_it.o
- .debug_info    0x000089ae     0x1b3f ..\obj\stm32_ub_sdcard.o
- .debug_info    0x0000a4ed      0x5d6 ..\obj\stm32f4xx_gpio.o
- .debug_info    0x0000aac3      0x482 ..\obj\usbd_cdc_vcp.o
- .debug_info    0x0000af45      0x566 ..\obj\system_stm32f4xx.o
- .debug_info    0x0000b4ab      0x718 ..\obj\stm32f4xx_dma.o
- .debug_info    0x0000bbc3      0xfd8 ..\obj\usb_bsp.o
- .debug_info    0x0000cb9b      0xf6f ..\obj\usbd_req.o
- .debug_info    0x0000db0a     0x1d41 ..\obj\usb_dcd_int.o
- .debug_info    0x0000f84b       0xe8 ..\obj\stm32f4_discovery_callbacks.o
- .debug_info    0x0000f933      0xec6 ..\obj\usbd_cdc_core.o
- .debug_info    0x000107f9      0xadb ..\obj\stm32f4xx_spi.o
- .debug_info    0x000112d4      0x331 ..\obj\stm32f4xx_exti.o
- .debug_info    0x00011605      0x51c ..\obj\misc.o
- .debug_info    0x00011b21      0xff3 ..\obj\usb_dcd.o
- .debug_info    0x00012b14      0xc8b ..\obj\usbd_ioreq.o
- .debug_info    0x0001379f     0x1c35 ..\obj\stm32f4xx_tim.o
- .debug_info    0x000153d4      0x979 ..\obj\usart.o
+ .debug_info    0x00005c01     0x12af ..\obj\main.o
+ .debug_info    0x00006eb0      0xc21 ..\obj\stm32f4xx_rcc.o
+ .debug_info    0x00007ad1      0xeee ..\obj\stm32f4xx_it.o
+ .debug_info    0x000089bf     0x1b3f ..\obj\stm32_ub_sdcard.o
+ .debug_info    0x0000a4fe      0x5d6 ..\obj\stm32f4xx_gpio.o
+ .debug_info    0x0000aad4      0x482 ..\obj\usbd_cdc_vcp.o
+ .debug_info    0x0000af56      0x566 ..\obj\system_stm32f4xx.o
+ .debug_info    0x0000b4bc      0x718 ..\obj\stm32f4xx_dma.o
+ .debug_info    0x0000bbd4      0xfd8 ..\obj\usb_bsp.o
+ .debug_info    0x0000cbac      0xf6f ..\obj\usbd_req.o
+ .debug_info    0x0000db1b     0x1d41 ..\obj\usb_dcd_int.o
+ .debug_info    0x0000f85c       0xe8 ..\obj\stm32f4_discovery_callbacks.o
+ .debug_info    0x0000f944      0xec6 ..\obj\usbd_cdc_core.o
+ .debug_info    0x0001080a      0xadb ..\obj\stm32f4xx_spi.o
+ .debug_info    0x000112e5      0x331 ..\obj\stm32f4xx_exti.o
+ .debug_info    0x00011616      0x51c ..\obj\misc.o
+ .debug_info    0x00011b32      0xff3 ..\obj\usb_dcd.o
+ .debug_info    0x00012b25      0xc8b ..\obj\usbd_ioreq.o
+ .debug_info    0x000137b0     0x1c35 ..\obj\stm32f4xx_tim.o
+ .debug_info    0x000153e5      0x979 ..\obj\usart.o
 
-.debug_abbrev   0x00000000     0x3008
+.debug_abbrev   0x00000000     0x3020
  .debug_abbrev  0x00000000      0x2e7 ..\obj\usb_core.o
  .debug_abbrev  0x000002e7      0x177 ..\obj\stm32f4xx_sdio.o
  .debug_abbrev  0x0000045e      0x256 ..\obj\stm32f4_discovery_audio_codec.o
@@ -2322,28 +2322,28 @@ OUTPUT(stm32f4_2LayerBoard.elf elf32-littlearm)
  .debug_abbrev  0x00000809      0x17c ..\obj\stm32f4xx_dac.o
  .debug_abbrev  0x00000985       0xb0 ..\obj\startup_stm32f4xx.o
  .debug_abbrev  0x00000a35      0x21d ..\obj\usbd_core.o
- .debug_abbrev  0x00000c52      0x275 ..\obj\main.o
- .debug_abbrev  0x00000ec7      0x1e3 ..\obj\stm32f4xx_rcc.o
- .debug_abbrev  0x000010aa      0x21b ..\obj\stm32f4xx_it.o
- .debug_abbrev  0x000012c5      0x283 ..\obj\stm32_ub_sdcard.o
- .debug_abbrev  0x00001548      0x1a3 ..\obj\stm32f4xx_gpio.o
- .debug_abbrev  0x000016eb      0x189 ..\obj\usbd_cdc_vcp.o
- .debug_abbrev  0x00001874      0x136 ..\obj\system_stm32f4xx.o
- .debug_abbrev  0x000019aa      0x155 ..\obj\stm32f4xx_dma.o
- .debug_abbrev  0x00001aff      0x22b ..\obj\usb_bsp.o
- .debug_abbrev  0x00001d2a      0x293 ..\obj\usbd_req.o
- .debug_abbrev  0x00001fbd      0x25b ..\obj\usb_dcd_int.o
- .debug_abbrev  0x00002218       0x90 ..\obj\stm32f4_discovery_callbacks.o
- .debug_abbrev  0x000022a8      0x215 ..\obj\usbd_cdc_core.o
- .debug_abbrev  0x000024bd      0x167 ..\obj\stm32f4xx_spi.o
- .debug_abbrev  0x00002624      0x1a5 ..\obj\stm32f4xx_exti.o
- .debug_abbrev  0x000027c9      0x145 ..\obj\misc.o
- .debug_abbrev  0x0000290e      0x259 ..\obj\usb_dcd.o
- .debug_abbrev  0x00002b67      0x1af ..\obj\usbd_ioreq.o
- .debug_abbrev  0x00002d16      0x187 ..\obj\stm32f4xx_tim.o
- .debug_abbrev  0x00002e9d      0x16b ..\obj\usart.o
+ .debug_abbrev  0x00000c52      0x28d ..\obj\main.o
+ .debug_abbrev  0x00000edf      0x1e3 ..\obj\stm32f4xx_rcc.o
+ .debug_abbrev  0x000010c2      0x21b ..\obj\stm32f4xx_it.o
+ .debug_abbrev  0x000012dd      0x283 ..\obj\stm32_ub_sdcard.o
+ .debug_abbrev  0x00001560      0x1a3 ..\obj\stm32f4xx_gpio.o
+ .debug_abbrev  0x00001703      0x189 ..\obj\usbd_cdc_vcp.o
+ .debug_abbrev  0x0000188c      0x136 ..\obj\system_stm32f4xx.o
+ .debug_abbrev  0x000019c2      0x155 ..\obj\stm32f4xx_dma.o
+ .debug_abbrev  0x00001b17      0x22b ..\obj\usb_bsp.o
+ .debug_abbrev  0x00001d42      0x293 ..\obj\usbd_req.o
+ .debug_abbrev  0x00001fd5      0x25b ..\obj\usb_dcd_int.o
+ .debug_abbrev  0x00002230       0x90 ..\obj\stm32f4_discovery_callbacks.o
+ .debug_abbrev  0x000022c0      0x215 ..\obj\usbd_cdc_core.o
+ .debug_abbrev  0x000024d5      0x167 ..\obj\stm32f4xx_spi.o
+ .debug_abbrev  0x0000263c      0x1a5 ..\obj\stm32f4xx_exti.o
+ .debug_abbrev  0x000027e1      0x145 ..\obj\misc.o
+ .debug_abbrev  0x00002926      0x259 ..\obj\usb_dcd.o
+ .debug_abbrev  0x00002b7f      0x1af ..\obj\usbd_ioreq.o
+ .debug_abbrev  0x00002d2e      0x187 ..\obj\stm32f4xx_tim.o
+ .debug_abbrev  0x00002eb5      0x16b ..\obj\usart.o
 
-.debug_aranges  0x00000000     0x1308
+.debug_aranges  0x00000000     0x1310
  .debug_aranges
                 0x00000000      0x138 ..\obj\usb_core.o
  .debug_aranges
@@ -2359,47 +2359,47 @@ OUTPUT(stm32f4_2LayerBoard.elf elf32-littlearm)
  .debug_aranges
                 0x00000538       0x80 ..\obj\usbd_core.o
  .debug_aranges
-                0x000005b8       0x38 ..\obj\main.o
+                0x000005b8       0x40 ..\obj\main.o
  .debug_aranges
-                0x000005f0      0x178 ..\obj\stm32f4xx_rcc.o
+                0x000005f8      0x178 ..\obj\stm32f4xx_rcc.o
  .debug_aranges
-                0x00000768       0x90 ..\obj\stm32f4xx_it.o
+                0x00000770       0x90 ..\obj\stm32f4xx_it.o
  .debug_aranges
-                0x000007f8      0x1a8 ..\obj\stm32_ub_sdcard.o
+                0x00000800      0x1a8 ..\obj\stm32_ub_sdcard.o
  .debug_aranges
-                0x000009a0       0x88 ..\obj\stm32f4xx_gpio.o
+                0x000009a8       0x88 ..\obj\stm32f4xx_gpio.o
  .debug_aranges
-                0x00000a28       0x70 ..\obj\usbd_cdc_vcp.o
+                0x00000a30       0x70 ..\obj\usbd_cdc_vcp.o
  .debug_aranges
-                0x00000a98       0x30 ..\obj\system_stm32f4xx.o
+                0x00000aa0       0x30 ..\obj\system_stm32f4xx.o
  .debug_aranges
-                0x00000ac8       0xb0 ..\obj\stm32f4xx_dma.o
+                0x00000ad0       0xb0 ..\obj\stm32f4xx_dma.o
  .debug_aranges
-                0x00000b78       0x48 ..\obj\usb_bsp.o
+                0x00000b80       0x48 ..\obj\usb_bsp.o
  .debug_aranges
-                0x00000bc0       0x88 ..\obj\usbd_req.o
+                0x00000bc8       0x88 ..\obj\usbd_req.o
  .debug_aranges
-                0x00000c48       0x80 ..\obj\usb_dcd_int.o
+                0x00000c50       0x80 ..\obj\usb_dcd_int.o
  .debug_aranges
-                0x00000cc8       0x28 ..\obj\stm32f4_discovery_callbacks.o
+                0x00000cd0       0x28 ..\obj\stm32f4_discovery_callbacks.o
  .debug_aranges
-                0x00000cf0       0x60 ..\obj\usbd_cdc_core.o
+                0x00000cf8       0x60 ..\obj\usbd_cdc_core.o
  .debug_aranges
-                0x00000d50       0xe0 ..\obj\stm32f4xx_spi.o
+                0x00000d58       0xe0 ..\obj\stm32f4xx_spi.o
  .debug_aranges
-                0x00000e30       0x58 ..\obj\stm32f4xx_exti.o
+                0x00000e38       0x58 ..\obj\stm32f4xx_exti.o
  .debug_aranges
-                0x00000e88       0x40 ..\obj\misc.o
+                0x00000e90       0x40 ..\obj\misc.o
  .debug_aranges
-                0x00000ec8       0x80 ..\obj\usb_dcd.o
+                0x00000ed0       0x80 ..\obj\usb_dcd.o
  .debug_aranges
-                0x00000f48       0x50 ..\obj\usbd_ioreq.o
+                0x00000f50       0x50 ..\obj\usbd_ioreq.o
  .debug_aranges
-                0x00000f98      0x2f8 ..\obj\stm32f4xx_tim.o
+                0x00000fa0      0x2f8 ..\obj\stm32f4xx_tim.o
  .debug_aranges
-                0x00001290       0x78 ..\obj\usart.o
+                0x00001298       0x78 ..\obj\usart.o
 
-.debug_ranges   0x00000000     0x1158
+.debug_ranges   0x00000000     0x1160
  .debug_ranges  0x00000000      0x128 ..\obj\usb_core.o
  .debug_ranges  0x00000128       0xf8 ..\obj\stm32f4xx_sdio.o
  .debug_ranges  0x00000220      0x120 ..\obj\stm32f4_discovery_audio_codec.o
@@ -2407,28 +2407,28 @@ OUTPUT(stm32f4_2LayerBoard.elf elf32-littlearm)
  .debug_ranges  0x00000430       0x90 ..\obj\stm32f4xx_dac.o
  .debug_ranges  0x000004c0       0x18 ..\obj\startup_stm32f4xx.o
  .debug_ranges  0x000004d8       0x70 ..\obj\usbd_core.o
- .debug_ranges  0x00000548       0x28 ..\obj\main.o
- .debug_ranges  0x00000570      0x168 ..\obj\stm32f4xx_rcc.o
- .debug_ranges  0x000006d8       0x80 ..\obj\stm32f4xx_it.o
- .debug_ranges  0x00000758      0x198 ..\obj\stm32_ub_sdcard.o
- .debug_ranges  0x000008f0       0x78 ..\obj\stm32f4xx_gpio.o
- .debug_ranges  0x00000968       0x60 ..\obj\usbd_cdc_vcp.o
- .debug_ranges  0x000009c8       0x20 ..\obj\system_stm32f4xx.o
- .debug_ranges  0x000009e8       0xa0 ..\obj\stm32f4xx_dma.o
- .debug_ranges  0x00000a88       0x38 ..\obj\usb_bsp.o
- .debug_ranges  0x00000ac0       0x78 ..\obj\usbd_req.o
- .debug_ranges  0x00000b38       0x70 ..\obj\usb_dcd_int.o
- .debug_ranges  0x00000ba8       0x18 ..\obj\stm32f4_discovery_callbacks.o
- .debug_ranges  0x00000bc0       0x50 ..\obj\usbd_cdc_core.o
- .debug_ranges  0x00000c10       0xd0 ..\obj\stm32f4xx_spi.o
- .debug_ranges  0x00000ce0       0x48 ..\obj\stm32f4xx_exti.o
- .debug_ranges  0x00000d28       0x30 ..\obj\misc.o
- .debug_ranges  0x00000d58       0x70 ..\obj\usb_dcd.o
- .debug_ranges  0x00000dc8       0x40 ..\obj\usbd_ioreq.o
- .debug_ranges  0x00000e08      0x2e8 ..\obj\stm32f4xx_tim.o
- .debug_ranges  0x000010f0       0x68 ..\obj\usart.o
+ .debug_ranges  0x00000548       0x30 ..\obj\main.o
+ .debug_ranges  0x00000578      0x168 ..\obj\stm32f4xx_rcc.o
+ .debug_ranges  0x000006e0       0x80 ..\obj\stm32f4xx_it.o
+ .debug_ranges  0x00000760      0x198 ..\obj\stm32_ub_sdcard.o
+ .debug_ranges  0x000008f8       0x78 ..\obj\stm32f4xx_gpio.o
+ .debug_ranges  0x00000970       0x60 ..\obj\usbd_cdc_vcp.o
+ .debug_ranges  0x000009d0       0x20 ..\obj\system_stm32f4xx.o
+ .debug_ranges  0x000009f0       0xa0 ..\obj\stm32f4xx_dma.o
+ .debug_ranges  0x00000a90       0x38 ..\obj\usb_bsp.o
+ .debug_ranges  0x00000ac8       0x78 ..\obj\usbd_req.o
+ .debug_ranges  0x00000b40       0x70 ..\obj\usb_dcd_int.o
+ .debug_ranges  0x00000bb0       0x18 ..\obj\stm32f4_discovery_callbacks.o
+ .debug_ranges  0x00000bc8       0x50 ..\obj\usbd_cdc_core.o
+ .debug_ranges  0x00000c18       0xd0 ..\obj\stm32f4xx_spi.o
+ .debug_ranges  0x00000ce8       0x48 ..\obj\stm32f4xx_exti.o
+ .debug_ranges  0x00000d30       0x30 ..\obj\misc.o
+ .debug_ranges  0x00000d60       0x70 ..\obj\usb_dcd.o
+ .debug_ranges  0x00000dd0       0x40 ..\obj\usbd_ioreq.o
+ .debug_ranges  0x00000e10      0x2e8 ..\obj\stm32f4xx_tim.o
+ .debug_ranges  0x000010f8       0x68 ..\obj\usart.o
 
-.debug_line     0x00000000     0x6717
+.debug_line     0x00000000     0x672a
  .debug_line    0x00000000      0x679 ..\obj\usb_core.o
  .debug_line    0x00000679      0x40b ..\obj\stm32f4xx_sdio.o
  .debug_line    0x00000a84      0x6d3 ..\obj\stm32f4_discovery_audio_codec.o
@@ -2436,28 +2436,28 @@ OUTPUT(stm32f4_2LayerBoard.elf elf32-littlearm)
  .debug_line    0x000015c1      0x323 ..\obj\stm32f4xx_dac.o
  .debug_line    0x000018e4       0xa7 ..\obj\startup_stm32f4xx.o
  .debug_line    0x0000198b      0x2f5 ..\obj\usbd_core.o
- .debug_line    0x00001c80      0x293 ..\obj\main.o
- .debug_line    0x00001f13      0x563 ..\obj\stm32f4xx_rcc.o
- .debug_line    0x00002476      0x2cd ..\obj\stm32f4xx_it.o
- .debug_line    0x00002743      0xbd6 ..\obj\stm32_ub_sdcard.o
- .debug_line    0x00003319      0x306 ..\obj\stm32f4xx_gpio.o
- .debug_line    0x0000361f      0x2fb ..\obj\usbd_cdc_vcp.o
- .debug_line    0x0000391a      0x1a4 ..\obj\system_stm32f4xx.o
- .debug_line    0x00003abe      0x3a3 ..\obj\stm32f4xx_dma.o
- .debug_line    0x00003e61      0x293 ..\obj\usb_bsp.o
- .debug_line    0x000040f4      0x3a5 ..\obj\usbd_req.o
- .debug_line    0x00004499      0x35c ..\obj\usb_dcd_int.o
- .debug_line    0x000047f5      0x131 ..\obj\stm32f4_discovery_callbacks.o
- .debug_line    0x00004926      0x2c1 ..\obj\usbd_cdc_core.o
- .debug_line    0x00004be7      0x419 ..\obj\stm32f4xx_spi.o
- .debug_line    0x00005000      0x26c ..\obj\stm32f4xx_exti.o
- .debug_line    0x0000526c      0x20c ..\obj\misc.o
- .debug_line    0x00005478      0x2e4 ..\obj\usb_dcd.o
- .debug_line    0x0000575c      0x209 ..\obj\usbd_ioreq.o
- .debug_line    0x00005965      0xa2c ..\obj\stm32f4xx_tim.o
- .debug_line    0x00006391      0x386 ..\obj\usart.o
+ .debug_line    0x00001c80      0x2a6 ..\obj\main.o
+ .debug_line    0x00001f26      0x563 ..\obj\stm32f4xx_rcc.o
+ .debug_line    0x00002489      0x2cd ..\obj\stm32f4xx_it.o
+ .debug_line    0x00002756      0xbd6 ..\obj\stm32_ub_sdcard.o
+ .debug_line    0x0000332c      0x306 ..\obj\stm32f4xx_gpio.o
+ .debug_line    0x00003632      0x2fb ..\obj\usbd_cdc_vcp.o
+ .debug_line    0x0000392d      0x1a4 ..\obj\system_stm32f4xx.o
+ .debug_line    0x00003ad1      0x3a3 ..\obj\stm32f4xx_dma.o
+ .debug_line    0x00003e74      0x293 ..\obj\usb_bsp.o
+ .debug_line    0x00004107      0x3a5 ..\obj\usbd_req.o
+ .debug_line    0x000044ac      0x35c ..\obj\usb_dcd_int.o
+ .debug_line    0x00004808      0x131 ..\obj\stm32f4_discovery_callbacks.o
+ .debug_line    0x00004939      0x2c1 ..\obj\usbd_cdc_core.o
+ .debug_line    0x00004bfa      0x419 ..\obj\stm32f4xx_spi.o
+ .debug_line    0x00005013      0x26c ..\obj\stm32f4xx_exti.o
+ .debug_line    0x0000527f      0x20c ..\obj\misc.o
+ .debug_line    0x0000548b      0x2e4 ..\obj\usb_dcd.o
+ .debug_line    0x0000576f      0x209 ..\obj\usbd_ioreq.o
+ .debug_line    0x00005978      0xa2c ..\obj\stm32f4xx_tim.o
+ .debug_line    0x000063a4      0x386 ..\obj\usart.o
 
-.debug_str      0x00000000     0x68f6
+.debug_str      0x00000000     0x6908
  .debug_str     0x00000000     0x1352 ..\obj\usb_core.o
                                0x1640 (size before relaxing)
  .debug_str     0x00001352      0x4d4 ..\obj\stm32f4xx_sdio.o
@@ -2472,45 +2472,45 @@ OUTPUT(stm32f4_2LayerBoard.elf elf32-littlearm)
                                 0x126 (size before relaxing)
  .debug_str     0x00002e3d      0x194 ..\obj\usbd_core.o
                                 0xa86 (size before relaxing)
- .debug_str     0x00002fd1      0x1fc ..\obj\main.o
-                               0x1159 (size before relaxing)
- .debug_str     0x000031cd      0x5e3 ..\obj\stm32f4xx_rcc.o
+ .debug_str     0x00002fd1      0x20e ..\obj\main.o
+                               0x116b (size before relaxing)
+ .debug_str     0x000031df      0x5e3 ..\obj\stm32f4xx_rcc.o
                                 0x805 (size before relaxing)
- .debug_str     0x000037b0      0x232 ..\obj\stm32f4xx_it.o
+ .debug_str     0x000037c2      0x232 ..\obj\stm32f4xx_it.o
                                 0xb65 (size before relaxing)
- .debug_str     0x000039e2      0xc9c ..\obj\stm32_ub_sdcard.o
+ .debug_str     0x000039f4      0xc9c ..\obj\stm32_ub_sdcard.o
                                0x1843 (size before relaxing)
- .debug_str     0x0000467e      0x181 ..\obj\stm32f4xx_gpio.o
+ .debug_str     0x00004690      0x181 ..\obj\stm32f4xx_gpio.o
                                 0x458 (size before relaxing)
- .debug_str     0x000047ff      0x1cb ..\obj\usbd_cdc_vcp.o
+ .debug_str     0x00004811      0x1cb ..\obj\usbd_cdc_vcp.o
                                 0x36b (size before relaxing)
- .debug_str     0x000049ca       0xba ..\obj\system_stm32f4xx.o
+ .debug_str     0x000049dc       0xba ..\obj\system_stm32f4xx.o
                                 0x35f (size before relaxing)
- .debug_str     0x00004a84      0x245 ..\obj\stm32f4xx_dma.o
+ .debug_str     0x00004a96      0x245 ..\obj\stm32f4xx_dma.o
                                 0x501 (size before relaxing)
- .debug_str     0x00004cc9       0xd1 ..\obj\usb_bsp.o
+ .debug_str     0x00004cdb       0xd1 ..\obj\usb_bsp.o
                                0x1087 (size before relaxing)
- .debug_str     0x00004d9a      0x18c ..\obj\usbd_req.o
+ .debug_str     0x00004dac      0x18c ..\obj\usbd_req.o
                                 0xab1 (size before relaxing)
- .debug_str     0x00004f26      0x27a ..\obj\usb_dcd_int.o
+ .debug_str     0x00004f38      0x27a ..\obj\usb_dcd_int.o
                                0x123e (size before relaxing)
- .debug_str     0x000051a0       0x8e ..\obj\stm32f4_discovery_callbacks.o
+ .debug_str     0x000051b2       0x8e ..\obj\stm32f4_discovery_callbacks.o
                                 0x1a4 (size before relaxing)
- .debug_str     0x0000522e      0x1b3 ..\obj\usbd_cdc_core.o
+ .debug_str     0x00005240      0x1b3 ..\obj\usbd_cdc_core.o
                                 0xace (size before relaxing)
- .debug_str     0x000053e1      0x31e ..\obj\stm32f4xx_spi.o
+ .debug_str     0x000053f3      0x31e ..\obj\stm32f4xx_spi.o
                                 0x63f (size before relaxing)
- .debug_str     0x000056ff      0x1d3 ..\obj\stm32f4xx_exti.o
+ .debug_str     0x00005711      0x1d3 ..\obj\stm32f4xx_exti.o
                                 0x323 (size before relaxing)
- .debug_str     0x000058d2      0x119 ..\obj\misc.o
+ .debug_str     0x000058e4      0x119 ..\obj\misc.o
                                 0x38e (size before relaxing)
- .debug_str     0x000059eb      0x115 ..\obj\usb_dcd.o
+ .debug_str     0x000059fd      0x115 ..\obj\usb_dcd.o
                                 0xae0 (size before relaxing)
- .debug_str     0x00005b00       0xd0 ..\obj\usbd_ioreq.o
+ .debug_str     0x00005b12       0xd0 ..\obj\usbd_ioreq.o
                                 0x970 (size before relaxing)
- .debug_str     0x00005bd0      0xaf5 ..\obj\stm32f4xx_tim.o
+ .debug_str     0x00005be2      0xaf5 ..\obj\stm32f4xx_tim.o
                                 0xd85 (size before relaxing)
- .debug_str     0x000066c5      0x231 ..\obj\usart.o
+ .debug_str     0x000066d7      0x231 ..\obj\usart.o
                                 0xbb6 (size before relaxing)
 
 .comment        0x00000000       0x46
@@ -2600,7 +2600,7 @@ OUTPUT(stm32f4_2LayerBoard.elf elf32-littlearm)
  .ARM.attributes
                 0x0000052e       0x33 ..\obj\usart.o
 
-.debug_frame    0x00000000     0x3de0
+.debug_frame    0x00000000     0x3df8
  .debug_frame   0x00000000      0x434 ..\obj\usb_core.o
  .debug_frame   0x00000434      0x344 ..\obj\stm32f4xx_sdio.o
  .debug_frame   0x00000778      0x438 ..\obj\stm32f4_discovery_audio_codec.o
@@ -2608,23 +2608,23 @@ OUTPUT(stm32f4_2LayerBoard.elf elf32-littlearm)
  .debug_frame   0x00000ef4      0x1ec ..\obj\stm32f4xx_dac.o
  .debug_frame   0x000010e0       0x48 ..\obj\startup_stm32f4xx.o
  .debug_frame   0x00001128      0x1ac ..\obj\usbd_core.o
- .debug_frame   0x000012d4       0x8c ..\obj\main.o
- .debug_frame   0x00001360      0x4d8 ..\obj\stm32f4xx_rcc.o
- .debug_frame   0x00001838      0x1a0 ..\obj\stm32f4xx_it.o
- .debug_frame   0x000019d8      0x63c ..\obj\stm32_ub_sdcard.o
- .debug_frame   0x00002014      0x19c ..\obj\stm32f4xx_gpio.o
- .debug_frame   0x000021b0      0x144 ..\obj\usbd_cdc_vcp.o
- .debug_frame   0x000022f4       0x64 ..\obj\system_stm32f4xx.o
- .debug_frame   0x00002358      0x224 ..\obj\stm32f4xx_dma.o
- .debug_frame   0x0000257c       0xc4 ..\obj\usb_bsp.o
- .debug_frame   0x00002640      0x1c8 ..\obj\usbd_req.o
- .debug_frame   0x00002808      0x1ac ..\obj\usb_dcd_int.o
- .debug_frame   0x000029b4       0x44 ..\obj\stm32f4_discovery_callbacks.o
- .debug_frame   0x000029f8      0x12c ..\obj\usbd_cdc_core.o
- .debug_frame   0x00002b24      0x2d0 ..\obj\stm32f4xx_spi.o
- .debug_frame   0x00002df4       0xec ..\obj\stm32f4xx_exti.o
- .debug_frame   0x00002ee0       0x9c ..\obj\misc.o
- .debug_frame   0x00002f7c      0x1ac ..\obj\usb_dcd.o
- .debug_frame   0x00003128       0xec ..\obj\usbd_ioreq.o
- .debug_frame   0x00003214      0xa3c ..\obj\stm32f4xx_tim.o
- .debug_frame   0x00003c50      0x190 ..\obj\usart.o
+ .debug_frame   0x000012d4       0xa4 ..\obj\main.o
+ .debug_frame   0x00001378      0x4d8 ..\obj\stm32f4xx_rcc.o
+ .debug_frame   0x00001850      0x1a0 ..\obj\stm32f4xx_it.o
+ .debug_frame   0x000019f0      0x63c ..\obj\stm32_ub_sdcard.o
+ .debug_frame   0x0000202c      0x19c ..\obj\stm32f4xx_gpio.o
+ .debug_frame   0x000021c8      0x144 ..\obj\usbd_cdc_vcp.o
+ .debug_frame   0x0000230c       0x64 ..\obj\system_stm32f4xx.o
+ .debug_frame   0x00002370      0x224 ..\obj\stm32f4xx_dma.o
+ .debug_frame   0x00002594       0xc4 ..\obj\usb_bsp.o
+ .debug_frame   0x00002658      0x1c8 ..\obj\usbd_req.o
+ .debug_frame   0x00002820      0x1ac ..\obj\usb_dcd_int.o
+ .debug_frame   0x000029cc       0x44 ..\obj\stm32f4_discovery_callbacks.o
+ .debug_frame   0x00002a10      0x12c ..\obj\usbd_cdc_core.o
+ .debug_frame   0x00002b3c      0x2d0 ..\obj\stm32f4xx_spi.o
+ .debug_frame   0x00002e0c       0xec ..\obj\stm32f4xx_exti.o
+ .debug_frame   0x00002ef8       0x9c ..\obj\misc.o
+ .debug_frame   0x00002f94      0x1ac ..\obj\usb_dcd.o
+ .debug_frame   0x00003140       0xec ..\obj\usbd_ioreq.o
+ .debug_frame   0x0000322c      0xa3c ..\obj\stm32f4xx_tim.o
+ .debug_frame   0x00003c68      0x190 ..\obj\usart.o

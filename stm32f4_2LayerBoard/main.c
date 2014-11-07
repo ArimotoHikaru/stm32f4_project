@@ -7,7 +7,15 @@ extern int Ticker;
  * the alignment, if necessary (it's actually magic, but don't tell anyone).
  */
 __ALIGN_BEGIN USB_OTG_CORE_HANDLE  USB_OTG_dev __ALIGN_END;
-
+void XXX_Configuration(void)
+{
+	/* Define variable ------------------------------------------------------*/
+	/* Define InitTypeDef ---------------------------------------------------*/
+	/* initialize InitTypeDef -----------------------------------------------*/
+	/* Supply clock source --------------------------------------------------*/
+	/* Define gpio_config ---------------------------------------------------*/
+	/* Set up XXX_function --------------------------------------------------*/
+}
 void init(void)
 {
 	SystemInit();
