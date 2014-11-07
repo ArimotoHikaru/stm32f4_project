@@ -1,8 +1,8 @@
 #include "usart.h"
 
-#define USART1_BAUDRATE 115200
-#define USART2_BAUDRATE 115200
-#define USART3_BAUDRATE 115200
+#define USART1_BAUDRATE 19200
+#define USART2_BAUDRATE 19200
+#define USART3_BAUDRATE 19200
 
 #define USART1_TxBufferSize  200//リングバッファの要素数
 #define USART1_RxBufferSize  200//リングバッファの要素数
@@ -43,7 +43,7 @@ void USART1_Configuration(void)
 
 	/* Supply clock source --------------------------------------------------*/
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
 	/* Define gpio_config ---------------------------------------------------*/
 	GPIO_InitStructure.GPIO_Pin  	= GPIO_Pin_9 | GPIO_Pin_10;
@@ -87,7 +87,8 @@ void USART2_Configuration(void)
 	/* initialize InitTypeDef -----------------------------------------------*/
 
 	/* Supply clock source --------------------------------------------------*/
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2 | RCC_AHB1Periph_GPIOD, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 
 	/* Define gpio_config ---------------------------------------------------*/
 	GPIO_InitStructure.GPIO_Pin  	= GPIO_Pin_5 | GPIO_Pin_6;
@@ -131,7 +132,8 @@ void USART3_Configuration(void)
 	/* initialize InitTypeDef -----------------------------------------------*/
 
 	/* Supply clock source --------------------------------------------------*/
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3 | RCC_AHB1Periph_GPIOD, ENABLE);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 
 	/* Define gpio_config ---------------------------------------------------*/
 	GPIO_InitStructure.GPIO_Pin  	= GPIO_Pin_8 | GPIO_Pin_9;
@@ -141,8 +143,8 @@ void USART3_Configuration(void)
 	GPIO_InitStructure.GPIO_Speed 	= GPIO_Speed_100MHz;
 	GPIO_Init(GPIOD, &GPIO_InitStructure);
 
-	GPIO_PinAFConfig(GPIOD, GPIO_PinSource8, GPIO_AF_USART3);//USART3 TX/PD5
-	GPIO_PinAFConfig(GPIOD, GPIO_PinSource9, GPIO_AF_USART3);//USART3 RX/PD6
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource8, GPIO_AF_USART3);//USART3 TX/PD8
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource9, GPIO_AF_USART3);//USART3 RX/PD9
 
 	/* Set up USART3_function --------------------------------------------------*/
 	USART_InitStructure.USART_BaudRate 				= USART3_BAUDRATE;
@@ -157,7 +159,7 @@ void USART3_Configuration(void)
 
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
 	NVIC_InitStructure.NVIC_IRQChannel 						= USART3_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority 	= 2;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority 	= 1;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority 			= 0;
 	NVIC_InitStructure.NVIC_IRQChannelCmd 					= ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
@@ -270,7 +272,7 @@ void USART1_IRQHandler(void)
 	if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET){  // UART送信フラグチェック
 		USART_SendData(USART1, USART1_TxBuffer[USART1_TxPtrNow++]); // １文字送信
 
-		if(USART1_TxPtrNow > (USART1_TxBufferSize-1)) USART1_TxPtrNow=0;;//   ポインタオーバーフローならゼロに戻す
+		if(USART1_TxPtrNow > (USART1_TxBufferSize-1)) USART1_TxPtrNow=0;//   ポインタオーバーフローならゼロに戻す
 
 		if(USART1_TxPtrNow == USART1_TxPtrEnd){     //リングバッファが空か？
 			USART_ITConfig(USART1, USART_IT_TXE, DISABLE); //送信割り込みをオフ
@@ -293,7 +295,7 @@ void USART2_IRQHandler(void)
 	if(USART_GetITStatus(USART2, USART_IT_TXE) != RESET){  // UART送信フラグチェック
 		USART_SendData(USART2, USART2_TxBuffer[USART2_TxPtrNow++]); // １文字送信
 
-		if(USART2_TxPtrNow > (USART2_TxBufferSize-1)) USART2_TxPtrNow=0;;//   ポインタオーバーフローならゼロに戻す
+		if(USART2_TxPtrNow > (USART2_TxBufferSize-1)) USART2_TxPtrNow=0;//   ポインタオーバーフローならゼロに戻す
 
 		if(USART2_TxPtrNow == USART2_TxPtrEnd){     //リングバッファが空か？
 			USART_ITConfig(USART2, USART_IT_TXE, DISABLE); //送信割り込みをオフ
@@ -315,7 +317,7 @@ void USART3_IRQHandler(void)
 	if(USART_GetITStatus(USART3, USART_IT_TXE) != RESET){  // UART送信フラグチェック
 		USART_SendData(USART3, USART3_TxBuffer[USART3_TxPtrNow++]); // １文字送信
 
-		if(USART3_TxPtrNow > (USART3_TxBufferSize-1)) USART3_TxPtrNow = 0;;//   ポインタオーバーフローならゼロに戻す
+		if(USART3_TxPtrNow > (USART3_TxBufferSize-1)) USART3_TxPtrNow = 0;//   ポインタオーバーフローならゼロに戻す
 
 		if(USART3_TxPtrNow == USART3_TxPtrEnd){     //リングバッファが空か？
 			USART_ITConfig(USART3, USART_IT_TXE, DISABLE); //送信割り込みをオフ

@@ -159,9 +159,9 @@
     <File name="ub_lib/fatfs/doc/en/mount.html" path="ub_lib/fatfs/doc/en/mount.html" type="1"/>
     <File name="ub_lib/stm32_ub_fatfs.h" path="ub_lib/stm32_ub_fatfs.h" type="1"/>
     <File name="usb_conf/usb_bsp.h" path="usb_conf/usb_bsp.h" type="1"/>
-    <File name="cmsis_lib/include/stm32f4xx_adc.h" path="cmsis_lib/include/stm32f4xx_adc.h" type="1"/>
     <File name="ub_lib/fatfs/doc/en/opendir.html" path="ub_lib/fatfs/doc/en/opendir.html" type="1"/>
     <File name="ub_lib/fatfs/doc/en/mkfs.html" path="ub_lib/fatfs/doc/en/mkfs.html" type="1"/>
+    <File name="cmsis_lib/include/stm32f4xx_adc.h" path="cmsis_lib/include/stm32f4xx_adc.h" type="1"/>
     <File name="tim_pwm.h" path="tim_pwm.h" type="1"/>
     <File name="cmsis_boot/system_stm32f4xx.c" path="cmsis_boot/system_stm32f4xx.c" type="1"/>
     <File name="ub_lib/fatfs/doc/en/error.html" path="ub_lib/fatfs/doc/en/error.html" type="1"/>
@@ -196,9 +196,9 @@
     <File name="main.c" path="main.c" type="1"/>
     <File name="ub_lib/fatfs/doc/updates.txt" path="ub_lib/fatfs/doc/updates.txt" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_gpio.c" path="cmsis_lib/source/stm32f4xx_gpio.c" type="1"/>
-    <File name="usb_lib/otg/usb_regs.h" path="usb_lib/otg/usb_regs.h" type="1"/>
     <File name="ub_lib/fatfs/doc/img/f5.png" path="ub_lib/fatfs/doc/img/f5.png" type="1"/>
     <File name="cmsis_lib/include/stm32f4xx_i2c.h" path="cmsis_lib/include/stm32f4xx_i2c.h" type="1"/>
+    <File name="usb_lib/otg/usb_regs.h" path="usb_lib/otg/usb_regs.h" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_dma.c" path="cmsis_lib/source/stm32f4xx_dma.c" type="1"/>
     <File name="ub_lib/fatfs/doc/en/dread.html" path="ub_lib/fatfs/doc/en/dread.html" type="1"/>
     <File name="cmsis_lib/source/stm32f4xx_can.c" path="cmsis_lib/source/stm32f4xx_can.c" type="1"/>
@@ -213,9 +213,9 @@
     <File name="STM32F4-Discovery/stm32f4_discovery.h" path="STM32F4-Discovery/stm32f4_discovery.h" type="1"/>
     <File name="usb_conf/usb_bsp.c" path="usb_conf/usb_bsp.c" type="1"/>
     <File name="cmsis_boot/startup" path="" type="2"/>
-    <File name="ub_lib/fatfs/ffconf.h" path="ub_lib/fatfs/ffconf.h" type="1"/>
     <File name="ub_lib/fatfs/diskio.h" path="ub_lib/fatfs/diskio.h" type="1"/>
     <File name="usb_conf/usbd_conf.h" path="usb_conf/usbd_conf.h" type="1"/>
+    <File name="ub_lib/fatfs/ffconf.h" path="ub_lib/fatfs/ffconf.h" type="1"/>
     <File name="ub_lib/fatfs/doc/en/chdrive.html" path="ub_lib/fatfs/doc/en/chdrive.html" type="1"/>
     <File name="cmsis/core_cm4.h" path="cmsis/core_cm4.h" type="1"/>
     <File name="usart.c" path="usart.c" type="1"/>
