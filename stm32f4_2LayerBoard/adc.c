@@ -79,7 +79,7 @@ void ADC_Configuration(void)
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_10, 5, ADC_SampleTime_480Cycles);
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_11, 6, ADC_SampleTime_480Cycles);
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_12, 7, ADC_SampleTime_480Cycles);
-	ADC_RegularChannelConfig(ADC1, ADC_Channel_13, 7, ADC_SampleTime_480Cycles);
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_13, 8, ADC_SampleTime_480Cycles);
 	ADC_VBATCmd(ENABLE);//?‘½•ª‚¢‚ç‚È‚¢
 	//•ÏŠ·Œ‹‰Ê‚ªDMA“]‘—‚³‚ê‚é‚²‚Æ‚ÉAADC‚ÍŸ‚Ì•ÏŠ·‚ğŠJn‚·‚é‚æ‚¤‚Éİ’è
 	ADC_DMARequestAfterLastTransferCmd(ADC1, ENABLE);

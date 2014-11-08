@@ -1,5 +1,5 @@
 #include "main.h"
-extern int Ticker;
+extern int ticker, downticker;
 
 //マイクロusbで必要
 /*
@@ -16,10 +16,11 @@ void XXX_Configuration(void)
 	/* Define gpio_config ---------------------------------------------------*/
 	/* Set up XXX_function --------------------------------------------------*/
 }
+
 void init(void)
 {
 	SystemInit();
-
+/*
 	GPIO_InitTypeDef GPIO_InitStructure;
 
 		RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOA |
@@ -49,14 +50,14 @@ void init(void)
 		*/
 	//Setup SystickTimer
 	if (SysTick_Config(SystemCoreClock / 1000)){ColorfulRingOfDeath();}
-/*
+
 	//Setup USB
 	USBD_Init(&USB_OTG_dev,
 	            USB_OTG_FS_CORE_ID,
 	            &USR_desc,
 	            &USBD_CDC_cb,
 	            &USR_cb);
-	            */
+
 
 	//UB_Fatfs_Init();
 	//ADC_Configuration();
@@ -65,7 +66,7 @@ void init(void)
 
 	//USART1_Configuration();
 	//USART2_Configuration();
-	USART3_Configuration();
+	//USART3_Configuration();
 
 }
 int main(void)
@@ -75,12 +76,11 @@ int main(void)
     while(1)
     {
 
-    	while(Ticker > 100){
-    		Ticker = 0;
-    		GPIOD->BSRRL = GPIO_Pin_14;
-    		GPIOD->BSRRL = GPIO_Pin_15;
+    	while(ticker > 100){
+    		ticker = 0;
+
     		sprintf(str,"hello world");
-    		///transmit_uart3_s(str);
+    		//transmit_uart3_s(str);
     		VCP_send_str(str);
     	}
     }

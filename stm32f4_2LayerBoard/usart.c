@@ -2,14 +2,14 @@
 
 #define USART1_BAUDRATE 19200
 #define USART2_BAUDRATE 19200
-#define USART3_BAUDRATE 19200
+#define Usart3_BAUDRATE 19200
 
 #define USART1_TxBufferSize  200//リングバッファの要素数
 #define USART1_RxBufferSize  200//リングバッファの要素数
 #define USART2_TxBufferSize  200//リングバッファの要素数
 #define USART2_RxBufferSize  200//リングバッファの要素数
-#define USART3_TxBufferSize  200//リングバッファの要素数
-#define USART3_RxBufferSize  200//リングバッファの要素数
+#define Usart3_TxBufferSize  200//リングバッファの要素数
+#define Usart3_RxBufferSize  200//リングバッファの要素数
 
 char USART1_TxBuffer[USART1_TxBufferSize];
 char USART1_RxBuffer[USART1_RxBufferSize];
@@ -25,12 +25,12 @@ int  USART2_TxPtrNow=0,
 int  USART2_RxPtrNow=0,
      USART2_RxPtrEnd=1;
 
-char USART3_TxBuffer[USART3_TxBufferSize];
-char USART3_RxBuffer[USART3_RxBufferSize];
-int  USART3_TxPtrNow=0,
-     USART3_TxPtrEnd=1;
-int  USART3_RxPtrNow=0,
-     USART3_RxPtrEnd=1;
+char Usart3_TxBuffer[Usart3_TxBufferSize];
+char Usart3_RxBuffer[Usart3_RxBufferSize];
+int  Usart3_TxPtrNow=0,
+     Usart3_TxPtrEnd=1;
+int  Usart3_RxPtrNow=0,
+     Usart3_RxPtrEnd=1;
 
 void USART1_Configuration(void)
 {
@@ -147,15 +147,16 @@ void USART3_Configuration(void)
 	GPIO_PinAFConfig(GPIOD, GPIO_PinSource9, GPIO_AF_USART3);//USART3 RX/PD9
 
 	/* Set up USART3_function --------------------------------------------------*/
-	USART_InitStructure.USART_BaudRate 				= USART3_BAUDRATE;
+	USART_InitStructure.USART_BaudRate 				= Usart3_BAUDRATE;
 	USART_InitStructure.USART_WordLength 			= USART_WordLength_8b;
 	USART_InitStructure.USART_StopBits 				= USART_StopBits_1;
 	USART_InitStructure.USART_Parity 				= USART_Parity_No;
 	USART_InitStructure.USART_HardwareFlowControl 	= USART_HardwareFlowControl_None;
 	USART_InitStructure.USART_Mode 					= USART_Mode_Rx | USART_Mode_Tx;
 	USART_Init(USART3, &USART_InitStructure);
-	USART_Cmd(USART3, ENABLE);
 	USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);
+	USART_Cmd(USART3, ENABLE);
+
 
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
 	NVIC_InitStructure.NVIC_IRQChannel 						= USART3_IRQn;
@@ -232,10 +233,10 @@ void transmit_uart3_c(char c)
 {
 
   USART_ITConfig(USART3, USART_IT_TXE, DISABLE);  //送信し終わった割り込みを一時的に禁止
-  USART3_TxBuffer[USART3_TxPtrEnd] = c;    //リングバッファに１文字追加
-  USART3_TxPtrEnd++;    //書き込みポインタを＋１
+  Usart3_TxBuffer[Usart3_TxPtrEnd] = c;    //リングバッファに１文字追加
+  Usart3_TxPtrEnd++;    //書き込みポインタを＋１
 
-  if(USART3_TxPtrEnd > (USART3_TxBufferSize-1)) USART3_TxPtrNow=0; USART3_TxPtrEnd = 1;    //書き込みポインタがオーバーフローしたら０に戻す
+  if(Usart3_TxPtrEnd > (Usart3_TxBufferSize-1)) Usart3_TxPtrNow=0; Usart3_TxPtrEnd = 1;    //書き込みポインタがオーバーフローしたら０に戻す
 
   USART_ITConfig(USART3, USART_IT_TXE, ENABLE);  // 送信し終わった割り込みを許可
 
@@ -248,10 +249,11 @@ void transmit_uart3_s(char *s)
 
   while(*s!=0) // until end of string   文字列の末尾までループ
   {
-    USART3_TxBuffer[USART3_TxPtrEnd] = *(s++);
-    USART3_TxPtrEnd++; //  ポインタ＋１
+    Usart3_TxBuffer[Usart3_TxPtrEnd]=*(s++);
+    Usart3_TxPtrEnd++; //  ポインタ＋１
 
-    if(USART3_TxPtrEnd > (USART3_TxBufferSize-1)) USART3_TxPtrEnd = 0;
+    if(Usart3_TxPtrEnd > (Usart3_TxBufferSize-1)) Usart3_TxPtrEnd = 0;
+
   }
 
   USART_ITConfig(USART3, USART_IT_TXE, ENABLE);   //送信し終わった割り込みを許可
@@ -315,11 +317,11 @@ void USART3_IRQHandler(void)
 
 	//送信割り込み
 	if(USART_GetITStatus(USART3, USART_IT_TXE) != RESET){  // UART送信フラグチェック
-		USART_SendData(USART3, USART3_TxBuffer[USART3_TxPtrNow++]); // １文字送信
+		USART_SendData(USART3, Usart3_TxBuffer[Usart3_TxPtrNow++]); // １文字送信
 
-		if(USART3_TxPtrNow > (USART3_TxBufferSize-1)) USART3_TxPtrNow = 0;//   ポインタオーバーフローならゼロに戻す
+		if(Usart3_TxPtrNow > (Usart3_TxBufferSize-1)) Usart3_TxPtrNow = 0;;//   ポインタオーバーフローならゼロに戻す
 
-		if(USART3_TxPtrNow == USART3_TxPtrEnd){     //リングバッファが空か？
+		if(Usart3_TxPtrNow == Usart3_TxPtrEnd){     //リングバッファが空か？
 			USART_ITConfig(USART3, USART_IT_TXE, DISABLE); //送信割り込みをオフ
 		}
 	}

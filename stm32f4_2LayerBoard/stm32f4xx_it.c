@@ -215,7 +215,7 @@ void SysTick_Handler(void)
 /*void PPP_IRQHandler(void)
 {
 }*/
-volatile uint32_t Ticker=0, downTicker=0;
+volatile uint32_t ticker=0, downticker=0;
 volatile uint32_t 	TIM4_over_flow, TIM4_under_flow,
 					TIM5_over_flow, TIM5_under_flow,
 					TIM8_over_flow, TIM8_under_flow;
@@ -228,11 +228,11 @@ volatile uint32_t 	TIM4_over_flow, TIM4_under_flow,
 *******************************************************************************/
 void SysTick_Handler(void)
 {
-	Ticker++;
+	ticker++;
 
-	if (downTicker > 0)
+	if (downticker > 0)
 	{
-		downTicker--;
+		downticker--;
 	}
 }
 /*******************************************************************************
