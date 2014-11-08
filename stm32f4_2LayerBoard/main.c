@@ -45,14 +45,14 @@ void init(void)
 		*/
 	//Setup SystickTimer
 	if (SysTick_Config(SystemCoreClock / 1000)){ColorfulRingOfDeath();}
-
+/*
 	//Setup USB
 	USBD_Init(&USB_OTG_dev,
 	            USB_OTG_FS_CORE_ID,
 	            &USR_desc,
 	            &USBD_CDC_cb,
 	            &USR_cb);
-
+*/
 
 	//UB_Fatfs_Init();
 	//ADC_Configuration();
@@ -61,7 +61,7 @@ void init(void)
 
 	//USART1_Configuration();
 	//USART2_Configuration();
-	//USART3_Configuration();
+	USART3_Configuration();
 
 }
 int main(void)
@@ -71,12 +71,12 @@ int main(void)
     while(1)
     {
 
-    	while(ticker > 100){
+    	while(ticker > 200){
     		ticker = 0;
 
-    		sprintf(str,"hello world");
-    		//transmit_uart3_s(str);
-    		VCP_send_str(str);
+    		sprintf(str,"hello world \n\r");
+    		transmit_uart3_s(str);
+    		//VCP_send_str(str);
     	}
     }
 }
