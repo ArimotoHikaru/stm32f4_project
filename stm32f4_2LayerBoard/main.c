@@ -1,12 +1,7 @@
 #include "main.h"
 extern int ticker, downticker;
 
-//マイクロusbで必要
-/*
- * The USB data must be 4 byte aligned if DMA is enabled. This macro handles
- * the alignment, if necessary (it's actually magic, but don't tell anyone).
- */
-__ALIGN_BEGIN USB_OTG_CORE_HANDLE  USB_OTG_dev __ALIGN_END;
+
 void XXX_Configuration(void)
 {
 	/* Define variable ------------------------------------------------------*/

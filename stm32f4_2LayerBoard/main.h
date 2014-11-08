@@ -42,6 +42,7 @@
 #define DEBUG_1
 #define DEBUG_2
 #define DEBUG_3
+
 enum {
   I2C_STATE_START = 0,
   I2C_STATE_ADDRESS_DONE,
@@ -74,7 +75,12 @@ enum {
 #include "stm32f4xx_i2c.h"
 
 
-
+//マイクロusbで必要
+/*
+ * The USB data must be 4 byte aligned if DMA is enabled. This macro handles
+ * the alignment, if necessary (it's actually magic, but don't tell anyone).
+ */
+__ALIGN_BEGIN USB_OTG_CORE_HANDLE  USB_OTG_dev __ALIGN_END;
 
 
 /* Exported types ------------------------------------------------------------*/
