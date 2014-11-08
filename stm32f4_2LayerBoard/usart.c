@@ -4,17 +4,17 @@
 #define USART2_BAUDRATE 19200
 #define Usart3_BAUDRATE 19200
 
-#define USART1_TxBufferSize  200//リングバッファの要素数
+//#define USART1_TxBufferSize  200//リングバッファの要素数
 #define USART1_RxBufferSize  200//リングバッファの要素数
 #define USART2_TxBufferSize  200//リングバッファの要素数
 #define USART2_RxBufferSize  200//リングバッファの要素数
 #define Usart3_TxBufferSize  200//リングバッファの要素数
 #define Usart3_RxBufferSize  200//リングバッファの要素数
 
-char USART1_TxBuffer[USART1_TxBufferSize];
+//char USART1_TxBuffer[USART1_TxBufferSize];
 char USART1_RxBuffer[USART1_RxBufferSize];
-int  USART1_TxPtrNow=0,
-     USART1_TxPtrEnd=1;
+/*int  USART1_TxPtrNow=0,
+     USART1_TxPtrEnd=1;*/
 int  USART1_RxPtrNow=0,
      USART1_RxPtrEnd=1;
 
@@ -46,14 +46,14 @@ void USART1_Configuration(void)
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
 	/* Define gpio_config ---------------------------------------------------*/
-	GPIO_InitStructure.GPIO_Pin  	= GPIO_Pin_9 | GPIO_Pin_10;
+	GPIO_InitStructure.GPIO_Pin  	= GPIO_Pin_10;// | GPIO_Pin_9;
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_OType 	= GPIO_OType_PP;
 	GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_NOPULL;
 	GPIO_InitStructure.GPIO_Speed 	= GPIO_Speed_100MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-	GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);//USART1 TX/PA9
+	//GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);//USART1 TX/PA9
 	GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_USART1);//USART1 RX/PA10
 
 	/* Set up USART1_function --------------------------------------------------*/
@@ -62,7 +62,7 @@ void USART1_Configuration(void)
 	USART_InitStructure.USART_StopBits 				= USART_StopBits_1;
 	USART_InitStructure.USART_Parity 				= USART_Parity_No;
 	USART_InitStructure.USART_HardwareFlowControl 	= USART_HardwareFlowControl_None;
-	USART_InitStructure.USART_Mode 					= USART_Mode_Rx | USART_Mode_Tx;
+	USART_InitStructure.USART_Mode 					= USART_Mode_Rx;// | USART_Mode_Tx;
 	USART_Init(USART1, &USART_InitStructure);
 	USART_Cmd(USART1, ENABLE);
 	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
@@ -167,7 +167,7 @@ void USART3_Configuration(void)
 
 
 }
-
+/*
 //一文字送信
 void transmit_uart1_c(char c)
 {
@@ -197,7 +197,7 @@ void transmit_uart1_s(char *s)
 
   USART_ITConfig(USART1, USART_IT_TXE, ENABLE);   //送信し終わった割り込みを許可
 }
-
+*/
 //一文字送信
 void transmit_uart2_c(char c)
 {
@@ -267,9 +267,9 @@ void USART1_IRQHandler(void)
 	//受信割り込み
 	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET){
 		c = (char)USART_ReceiveData(USART1);
-		transmit_uart1_c(c);
+		//transmit_uartX_c(c); コールバック
 	}
-
+/*microUSBに繋がっているため使用不可 受信は可能
 	//送信割り込み
 	if(USART_GetITStatus(USART1, USART_IT_TXE) != RESET){  // UART送信フラグチェック
 		USART_SendData(USART1, USART1_TxBuffer[USART1_TxPtrNow++]); // １文字送信
@@ -280,6 +280,7 @@ void USART1_IRQHandler(void)
 			USART_ITConfig(USART1, USART_IT_TXE, DISABLE); //送信割り込みをオフ
 		}
 	}
+	*/
 }
 
 void USART2_IRQHandler(void)

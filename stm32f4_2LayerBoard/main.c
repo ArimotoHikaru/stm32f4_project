@@ -59,9 +59,9 @@ void init(void)
 	//I2C_Configuration();
 	//TIM_encoder_Configuration();
 
-	//USART1_Configuration();
-	//USART2_Configuration();
-	USART3_Configuration();
+	USART1_Configuration();
+	USART2_Configuration();
+	//USART3_Configuration();
 
 }
 int main(void)
@@ -74,8 +74,8 @@ int main(void)
     	while(ticker > 200){
     		ticker = 0;
 
-    		sprintf(str,"hello world \n\r");
-    		transmit_uart3_s(str);
+    		//sprintf(str,"hello world \n\r");
+    		//transmit_uart1_s(str);
     		//VCP_send_str(str);
     	}
     }
