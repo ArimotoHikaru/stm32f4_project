@@ -7,8 +7,7 @@ void TIM_encoder_Configuration(void)
 
 	/* Define InitTypeDef ---------------------------------------------------*/
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
-	GPIO_InitTypeDef GPIO_InitStructure;
-	NVIC_InitTypeDef NVIC_InitStructure;
+	GPIO_InitTypeDef 		GPIO_InitStructure;
 
 	/* initialize InitTypeDef -----------------------------------------------*/
 	/* Supply clock source --------------------------------------------------*/
@@ -28,10 +27,10 @@ void TIM_encoder_Configuration(void)
 
 	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_6 | GPIO_Pin_7;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
-
-	//GPIO_InitStructure.GPIO_Pin =  GPIO_Pin12 | GPIO_Pin_13;
-	//GPIO_Init(GPIOD, &GPIO_InitStructure);
-
+/*
+	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_12 | GPIO_Pin_13;
+	GPIO_Init(GPIOD, &GPIO_InitStructure);
+*/
 	GPIO_PinAFConfig(GPIOA,GPIO_PinSource0,GPIO_AF_TIM5);
 	GPIO_PinAFConfig(GPIOA,GPIO_PinSource1,GPIO_AF_TIM5);
 	GPIO_PinAFConfig(GPIOB,GPIO_PinSource6,GPIO_AF_TIM4);
@@ -44,10 +43,10 @@ void TIM_encoder_Configuration(void)
 	PrescalerValue = (uint16_t) ((SystemCoreClock ) / 84000000) - 1;
 
 	/* メンバの値の設定 */
-	TIM_TimeBaseStructure.TIM_Period = 0xffff-1;
-	TIM_TimeBaseStructure.TIM_Prescaler = 0;
+	TIM_TimeBaseStructure.TIM_Period		= 0xffff-1;
+	TIM_TimeBaseStructure.TIM_Prescaler		= 0;
 	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseStructure.TIM_CounterMode 	= TIM_CounterMode_Up;
 	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
 	TIM_TimeBaseInit(TIM5, &TIM_TimeBaseStructure);
 	TIM_TimeBaseInit(TIM8, &TIM_TimeBaseStructure);
@@ -62,37 +61,21 @@ void TIM_encoder_Configuration(void)
 	TIM_EncoderInterfaceConfig(TIM8, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);
 
 	/*更新割り込み設定*/
+#ifdef USE_INTERRUPT_TIM4
 	TIM_ITConfig(TIM4, TIM_IT_Update, ENABLE );
+#endif
+
+#ifdef USE_INTERRUPT_TIM5
 	TIM_ITConfig(TIM5, TIM_IT_Update, ENABLE );
+#endif
+
+#ifdef USE_INTERRUPT_TIM8_13
 	TIM_ITConfig(TIM8, TIM_IT_Update, ENABLE );
+#endif
 
 	/* TIM enable counter */
 	TIM_Cmd(TIM4, ENABLE);
 	TIM_Cmd(TIM5, ENABLE);
 	TIM_Cmd(TIM8, ENABLE);
-
-	//TIM4
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);
-	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
-
-	//TIM5
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);
-	NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
-
-	//TIM8
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);
-	NVIC_InitStructure.NVIC_IRQChannel = TIM8_UP_TIM13_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
 
 }

@@ -24,14 +24,14 @@ void TIM_pwm_Configuration(void)
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB | RCC_AHB1Periph_GPIOE,ENABLE);
 
 	/* Define gpio_config ---------------------------------------------------*/
-	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_11 | GPIO_Pin_14;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Pin  	= GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_11 | GPIO_Pin_14;
+	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_Speed 	= GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_OType 	= GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_NOPULL;
 	GPIO_Init(GPIOB,&GPIO_InitStructure);
 
-	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_4 | GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_12 | GPIO_Pin_13 |GPIO_Pin_14;
+	GPIO_InitStructure.GPIO_Pin  	= GPIO_Pin_4 | GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_12 | GPIO_Pin_13 |GPIO_Pin_14;
 	GPIO_Init(GPIOE,&GPIO_InitStructure);
 
 	GPIO_PinAFConfig(GPIOB,GPIO_PinSource0,GPIO_AF_TIM3);	//TIM3_CH4
@@ -50,10 +50,10 @@ void TIM_pwm_Configuration(void)
 
 	//Time base configuration
 	TIM_TimeBaseStructInit (&TIM_TimeBaseStructure);
-	TIM_TimeBaseStructure.TIM_Period = TIM_TimerPeriod;
-	TIM_TimeBaseStructure.TIM_Prescaler = 0;
-	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseStructure.TIM_Period 			= TIM_TimerPeriod;
+	TIM_TimeBaseStructure.TIM_Prescaler 		= 0;
+	TIM_TimeBaseStructure.TIM_ClockDivision 	= 0;
+	TIM_TimeBaseStructure.TIM_CounterMode 		= TIM_CounterMode_Up;
 	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
 
 	TIM_TimeBaseInit(TIM1,&TIM_TimeBaseStructure);
@@ -72,10 +72,9 @@ void TIM_pwm_Configuration(void)
 
 	//Output Compare Toggle Mode configuration
 	TIM_OCStructInit (&TIM_OCInitStructure);
-	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+	TIM_OCInitStructure.TIM_OCMode 		= TIM_OCMode_PWM1;
+	TIM_OCInitStructure.TIM_OCPolarity 	= TIM_OCPolarity_High;
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-
 
 	//TIM1_CH1
 	TIM_OC1Init(TIM1,&TIM_OCInitStructure);
@@ -99,7 +98,6 @@ void TIM_pwm_Configuration(void)
 	TIM_OC1Init(TIM12,&TIM_OCInitStructure);
 	TIM_OC1PreloadConfig(TIM12,TIM_OCPreload_Disable);
 
-
 	/*TIM1とTIM8はSTM32の中でも高機能タイマに分類され、1
 	このBREAK機能の中でoutputの有効化という機能があり、デフォルトの設定で
 	タイマー出力ごとにoutputが無効に設定されているためPWM信号が止まる。
@@ -119,6 +117,14 @@ void TIM_pwm_Configuration(void)
 	TIM_Cmd(TIM2,ENABLE);
 	TIM_Cmd(TIM3,ENABLE);
 	TIM_Cmd(TIM12,ENABLE);
+
+	/*main文でduty比を変えたい場合
+	  TIMx->CCRy = z;
+	  y=チャンネル
+	  zはTIM_TimerPeriodで設定した値がカウントされる最上値なのでそれ以下の値を入れる
+	  TIM_TimerPeriod=100だとするとz=50を代入すればduty比50%の出力が出る
+	*/
+
 }
 
 

@@ -14,9 +14,9 @@
 #include "stm32f4xx_dma.h"
 #include "misc.h"
 //Use detect pin
-#define FATFS_USE_DETECT_PIN            1
+#define FATFS_USE_DETECT_PIN			1
 //Use writeprotect pin
-#define FATFS_USE_WRITEPROTECT_PIN        1
+#define FATFS_USE_WRITEPROTECT_PIN		1
 
 //Activate SDIO 1-bit mode
 //#define FATFS_SDIO_4BIT         0

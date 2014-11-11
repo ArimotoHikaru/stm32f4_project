@@ -43,6 +43,31 @@
 #define DEBUG_2
 #define DEBUG_3
 
+#define USE_MICROUSB
+
+#define USE_USART1
+#define USE_INTERRUPT_USART1
+
+#define USE_USART2
+#define USE_INTERRUPT_USART2
+
+#define USE_USART3
+#define USE_INTERRUPT_USART3
+
+//#define USE_I2C1
+//#define USE_INTERRUPT_I2C1
+
+#define USE_SPI
+#define USE_INTERRUPT_SPI
+
+#define USE_ENCODER
+#define USE_INTERRUPT_TIM4
+#define USE_INTERRUPT_TIM5
+#define USE_INTERRUPT_TIM8_13
+
+#define USE_ADC
+#define USE_SDIO
+
 enum {
   I2C_STATE_START = 0,
   I2C_STATE_ADDRESS_DONE,
@@ -65,6 +90,7 @@ enum {
 #include "usb_dcd_int.h"
 #include "stm32f4xx_tim.h"
 #include "stm32f4xx_sdio.h"
+#include "stm32f4xx_spi.h"
 //user_hedder
 #include "adc.h"
 #include "tim_pwm.h"
@@ -88,6 +114,7 @@ __ALIGN_BEGIN USB_OTG_CORE_HANDLE  USB_OTG_dev __ALIGN_END;
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void init();
+void ColorfulRingOfDeath(void);
 
 #endif /* __MAIN_H */
 

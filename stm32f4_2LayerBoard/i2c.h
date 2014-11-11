@@ -7,6 +7,8 @@
 #include "stm32f4xx_gpio.h"
 #include "stm32f4xx_rcc.h"
 #include "misc.h"
+#include "main.h"
+
 void I2C_Configuration(void);
 void AWrite_ATP(int slave_add, int cmd);
 char ARead_ATP(int slave_add);

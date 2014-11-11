@@ -7,6 +7,7 @@
 #include "stm32f4xx_rcc.h"
 #include "stm32f4xx_gpio.h"
 #include "misc.h"
+#include "main.h"
 
 //ˆê•¶š‘—M
 void transmit_uart1_c(char c);

@@ -7,9 +7,8 @@ void I2C_Configuration(void)
 {
 	/* Define variable ------------------------------------------------------*/
 	/* Define InitTypeDef ---------------------------------------------------*/
-	GPIO_InitTypeDef GPIO_InitStructure;
-	NVIC_InitTypeDef NVIC_InitStruct_I2C;
-	I2C_InitTypeDef I2C_InitStructure;
+	GPIO_InitTypeDef 	GPIO_InitStructure;
+	I2C_InitTypeDef 	I2C_InitStructure;
 
 	/* initialize InitTypeDef -----------------------------------------------*/
 	I2C_StructInit(&I2C_InitStructure);
@@ -26,8 +25,8 @@ void I2C_Configuration(void)
  	GPIO_InitStructure.GPIO_PuPd	= GPIO_PuPd_NOPULL;
  	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
- 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_I2C1);
- 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource9, GPIO_AF_I2C1);
+ 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_I2C1);//PB8 SCL
+ 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource9, GPIO_AF_I2C1);//PB9 SDA
 
 	/* Set up I2C_function --------------------------------------------------*/
 	I2C_DeInit(I2C1);
@@ -38,14 +37,10 @@ void I2C_Configuration(void)
  	I2C_InitStructure.I2C_ClockSpeed			= 50000;
  	I2C_Init(I2C1, &I2C_InitStructure);
  	I2C_Cmd(I2C1, ENABLE);
- 	//I2C_ITConfig(I2C1, I2C_IT_EVT, ENABLE);
 
-	NVIC_InitStruct_I2C.NVIC_IRQChannel = I2C1_EV_IRQn;
-	NVIC_InitStruct_I2C.NVIC_IRQChannelPreemptionPriority = 1;
-	NVIC_InitStruct_I2C.NVIC_IRQChannelSubPriority = 0;
-	NVIC_InitStruct_I2C.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStruct_I2C);
-
+#ifdef USE_INTERRUPT_I2C1
+ 	I2C_ITConfig(I2C1, I2C_IT_EVT, ENABLE);
+#endif
 
 }
 
