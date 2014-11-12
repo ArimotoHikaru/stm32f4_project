@@ -89,6 +89,8 @@ void init(void)
 #ifdef USE_PWM
 	TIM_pwm_Configuration();
 #endif
+
+	NVIC_Configuration();
 }
 
 int main(void)
@@ -96,14 +98,24 @@ int main(void)
 	char str[50] = {0};
 	init();
 
+	TIM1->CCR1 = 839;
+	TIM1->CCR3 = 839;
+	TIM1->CCR4 = 839;
+	TIM2->CCR4 = 800;
+	TIM3->CCR3 = 500;
+	TIM3->CCR4 = 660;
+	TIM12->CCR1 = 100;
+
+
     while(1)
     {
 
     	while(ticker > 50){
     		ticker = 0;
 
+    		sprintf(str,"hello\n\r");
     		//transmit_uart3_s(str);
-    		//VCP_send_str(str);
+    		VCP_send_str(str);
     	}
     }
 }

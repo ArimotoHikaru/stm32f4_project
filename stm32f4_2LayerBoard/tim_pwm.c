@@ -56,7 +56,6 @@ void TIM_pwm_Configuration(void)
 	TIM_TimeBaseStructure.TIM_CounterMode 		= TIM_CounterMode_Up;
 	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
 
-	TIM_TimeBaseInit(TIM1,&TIM_TimeBaseStructure);
 	TIM_TimeBaseInit(TIM2,&TIM_TimeBaseStructure);
 	TIM_TimeBaseInit(TIM3,&TIM_TimeBaseStructure);
 	TIM_TimeBaseInit(TIM12,&TIM_TimeBaseStructure);
@@ -66,9 +65,8 @@ void TIM_pwm_Configuration(void)
 	//Time base configuration
 	TIM_TimeBaseStructure.TIM_Period = TIM_TimerPeriod;
 	TIM_TimeBaseStructure.TIM_Prescaler = 1;
-	//APB2
+
 	TIM_TimeBaseInit(TIM1,&TIM_TimeBaseStructure);
-	TIM_TimeBaseInit(TIM9,&TIM_TimeBaseStructure);
 
 	//Output Compare Toggle Mode configuration
 	TIM_OCStructInit (&TIM_OCInitStructure);

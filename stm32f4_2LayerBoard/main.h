@@ -43,7 +43,7 @@
 #define DEBUG_2
 #define DEBUG_3
 
-//#define USE_MICROUSB
+#define USE_MICROUSB
 
 //#define USE_USART1
 //#define USE_INTERRUPT_USART1
@@ -51,8 +51,8 @@
 //#define USE_USART2
 //#define USE_INTERRUPT_USART2
 
-//#define USE_USART3
-//#define USE_INTERRUPT_USART3
+#define USE_USART3
+#define USE_INTERRUPT_USART3
 
 //#define USE_I2C1
 //#define USE_INTERRUPT_I2C1
@@ -67,7 +67,7 @@
 
 //#define USE_ADC
 //#define USE_SDIO
-//#define USE_PWM
+#define USE_PWM
 
 enum {
   I2C_STATE_START = 0,
