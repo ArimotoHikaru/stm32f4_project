@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "main.h"
 
 extern int ticker, downticker;
@@ -88,6 +89,10 @@ void init(void)
 
 #ifdef USE_PWM
 	TIM_pwm_Configuration();
+#endif
+
+#ifdef USE_EXTI
+	EXTI_Configuration();
 #endif
 
 	NVIC_Configuration();
