@@ -1,0 +1,93 @@
+#include "can.h"
+
+void CAN_Configuration(void)
+{
+	/* Define variable ------------------------------------------------------*/
+	/* Define InitTypeDef ---------------------------------------------------*/
+	GPIO_InitTypeDef 		GPIO_InitStructure;
+	CAN_InitTypeDef 		CAN_InitStructure;
+	CAN_FilterInitTypeDef	CAN_FilterInitStructure;
+	NVIC_InitTypeDef 		NVIC_InitStructure;
+
+	/* initialize InitTypeDef -----------------------------------------------*/
+	CAN_DeInit(&CAN_InitStructure);
+
+	/* Supply clock source --------------------------------------------------*/
+	RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOD, ENABLE);
+	RCC_APB1PeriphClockCmd( RCC_APB1Periph_CAN1, ENABLE);
+
+	/* Define gpio_config ---------------------------------------------------*/
+	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_0 | GPIO_Pin_1;
+	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_UP;
+	GPIO_InitStructure.GPIO_Speed 	= GPIO_Speed_2MHz;
+	GPIO_Init(GPIOD, &GPIO_InitStructure);
+
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource0, GPIO_AF_CAN1);
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource1, GPIO_AF_CAN1);
+
+	/* Set up CAN function -------------------------------------------------*/
+	/* タイムトリガ通信モードの有効化・無効化を設定する */
+	CAN_InitStructure.CAN_TTCM = ENABLE;
+
+	/* I自動バスオフ管理(Automatic Bus-Off Management)の有効化・無効化を設定する */
+	CAN_InitStructure.CAN_ABOM 		= DISABLE;
+
+	/* 自動再起動モードの有効化・無効化を設定する  */
+	CAN_InitStructure.CAN_AWUM 		= DISABLE;
+
+	/* 自動再送信禁止を有効化・無効化する DISABLE: 自動再送信禁止を無効化(つまり再送信は有効) ENABLE: 自動再送信禁止。正常に送信されなくても送信は1回だけ行われる */
+	CAN_InitStructure.CAN_NART 		= DISABLE;
+
+	/* 受信FIFOロックモードの有効化・無効化を設定する */
+	CAN_InitStructure.CAN_RFLM 		= DISABLE;
+
+	/* 送信FIFOの送信順序を指定する。DISABLE:メッセージIDで送信順序が決定される  ENABLE:ソフトウェアで送信要求が発生された順番で送信される */
+	CAN_InitStructure.CAN_TXFP 		= DISABLE;
+
+	/* Initialize the CAN_Mode member */
+	CAN_InitStructure.CAN_Mode 		= CAN_Mode_LoopBack;
+
+	/* 再同期ジャンプ幅(CANハードウェアが再同期を行う際のビット幅)を時間単位の数で設定する */
+	CAN_InitStructure.CAN_SJW 		= CAN_SJW_1tq;
+
+	/* CANビットタイミングレジスタ(CAN_BTR)のTS1[3:0]を設定する。 */
+	CAN_InitStructure.CAN_BS1 		= CAN_BS1_8tq;
+
+	/* CANビットタイミングレジスタ(CAN_BTR)のTS2[2:0]を設定する */
+	CAN_InitStructure.CAN_BS2 		= CAN_BS2_7tq;
+
+	/* ボーレートプリスケーラ設定する APB1=42MHz*/
+	CAN_InitStructure.CAN_Prescaler	= 5;
+
+	CAN_Init(CAN1, &CAN_InitStructure);
+
+	/* Set up CAN Filter function -------------------------------------------------*/
+	CAN_FilterInitStructure.CAN_FilterNumber			= 0;
+
+	CAN_FilterInitStructure.CAN_FilterMode				= CAN_FilterMode_IdMask;
+
+	CAN_FilterInitStructure.CAN_FilterScale				= CAN_FilterScale_32bit;
+
+	CAN_FilterInitStructure.CAN_FilterIdHigh			= 0x0000;
+
+	CAN_FilterInitStructure.CAN_FilterIdLow				= 0x0000;
+
+	CAN_FilterInitStructure.CAN_FilterMaskIdHigh		= 0x0000;
+
+	CAN_FilterInitStructure.CAN_FilterMaskIdLow			= 0x0000;
+
+	CAN_FilterInitStructure.CAN_FilterFIFOAssignment	= 0;
+
+	CAN_FilterInitStructure.CAN_FilterActivation		= DISABLE;
+
+	CAN_FilterInit(&CAN_FilterInitStructure);
+
+	//CAN_ITConfig(CAN_IT_FOV0, ENABLE);
+
+}
+
+void CAN1_TX_IRQHandler(void);
+void CAN1_RX0_IRQHandler(void);
+void CAN1_RX1_IRQHandler(void);
+void CAN1_SCE_IRQHandler(void);

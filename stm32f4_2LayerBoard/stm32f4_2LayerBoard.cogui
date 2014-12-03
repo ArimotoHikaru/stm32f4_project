@@ -22,13 +22,16 @@
 <part id="4"/>
 <part id="5"/>
 <part id="6"/>
+<part id="7"/>
+<part id="8"/>
+<part id="9"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" partName="main.c" path="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/main.c" title="main.c" tooltip="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/main.c" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" partName="main.c" path="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/main.c" title="main.c" tooltip="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/main.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/stm32f4_2LayerBoard/main.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="296" selectionOffset="843" selectionTopPixel="1954"/>
+<editorState selectionHorizontalPixel="0" selectionLength="296" selectionOffset="843" selectionTopPixel="1860"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="main.h" partName="main.h" path="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/main.h" title="main.h" tooltip="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/main.h" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/stm32f4_2LayerBoard/main.h"/>
@@ -54,6 +57,18 @@
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/stm32f4_2LayerBoard/cmsis_lib/include/stm32f4xx_rcc.h"/>
 <editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="17301" selectionTopPixel="7374"/>
 </editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="tim_encoder.c" partName="tim_encoder.c" path="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/tim_encoder.c" title="tim_encoder.c" tooltip="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/tim_encoder.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/stm32f4_2LayerBoard/tim_encoder.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="732"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_it.c" partName="stm32f4xx_it.c" path="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/stm32f4xx_it.c" title="stm32f4xx_it.c" tooltip="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/stm32f4xx_it.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/stm32f4_2LayerBoard/stm32f4xx_it.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="12110" selectionTopPixel="6416"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="usart.c" partName="usart.c" path="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/usart.c" title="usart.c" tooltip="C:/CooCox/CoIDE/workspace/stm32f4_2LayerBoard/usart.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/stm32f4_2LayerBoard/usart.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="6909"/>
+</editor>
 </editors>
 <views>
 <view id="org.eclipse.debug.ui.ExpressionView" partName="Expressions">
@@ -62,12 +77,12 @@
 </viewState>
 </view>
 <view id="org.coocox.builder.ui.views.ProjectView" partName="Project">
-<viewState CommonNavigator.LINKING_ENABLED="0" horizontalPosition="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0" verticalPosition="0">
+<viewState CommonNavigator.LINKING_ENABLED="0" horizontalPosition="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0" verticalPosition="12">
 <expanded>
 <element path="/stm32f4_2LayerBoard"/>
 </expanded>
 <selection>
-<element path="/stm32f4_2LayerBoard/i2c.c"/>
+<element path="/stm32f4_2LayerBoard/usart.c"/>
 </selection>
 </viewState>
 </view>
@@ -283,16 +298,10 @@
 </editor>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/stm32f4_2LayerBoard/i2c.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/stm32f4_2LayerBoard/cmsis_lib/include/stm32f4xx_gpio.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/stm32f4_2LayerBoard/tim_encoder.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/stm32f4_2LayerBoard/stm32f4xx_it.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/stm32f4_2LayerBoard/usart.c"/>
 </editors>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="661" y="22"/>
-</item>
-<item historyLabel="stm32f4xx_rcc.c" index="1">
-<position info="not_deleted" x="59279" y="19"/>
-</item>
-<item historyLabel="stm32f4xx_rcc.h" index="5">
-<position info="not_deleted" x="11735" y="3"/>
-</item>
 <item historyLabel="stm32f4xx_rcc.c" index="1">
 <position info="not_deleted" x="59279" y="19"/>
 </item>
@@ -429,8 +438,17 @@
 <item historyLabel="main.h" index="4">
 <position info="not_deleted" x="2732" y="0"/>
 </item>
-<item active="true" historyLabel="main.c" index="0">
+<item historyLabel="main.c" index="0">
 <position info="not_deleted" x="843" y="296"/>
+</item>
+<item historyLabel="tim_encoder.c" index="9">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="stm32f4xx_it.c" index="10">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item active="true" historyLabel="usart.c" index="11">
+<position info="not_deleted" x="0" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -439,6 +457,15 @@
 <actionBarAdvisor/>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="usart.c" tooltip="stm32f4_2LayerBoard/usart.c">
+<persistable path="/stm32f4_2LayerBoard/usart.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_it.c" tooltip="stm32f4_2LayerBoard/stm32f4xx_it.c">
+<persistable path="/stm32f4_2LayerBoard/stm32f4xx_it.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="tim_encoder.c" tooltip="stm32f4_2LayerBoard/tim_encoder.c">
+<persistable path="/stm32f4_2LayerBoard/tim_encoder.c"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_gpio.h" tooltip="stm32f4_2LayerBoard/cmsis_lib/include/stm32f4xx_gpio.h">
 <persistable path="/stm32f4_2LayerBoard/cmsis_lib/include/stm32f4xx_gpio.h"/>
 </file>
@@ -458,8 +485,7 @@
 <persistable path="/stm32f4_2LayerBoard/exti.h"/>
 </file>
 <file factoryID="org.coocox.component.ui.editors.repository.RepositoryElementFactory" id="org.coocox.builder.ui.editors.repository.RepositoryBrowser" name="Repository" tooltip="Repository">
-<persistable>
-<subPage/>
+<persistable>&#x0A;<subPage/>
 </persistable>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_exti.c" tooltip="stm32f4_2LayerBoard/cmsis_lib/source/stm32f4xx_exti.c">
@@ -476,15 +502,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_usart.c" tooltip="stm32f4_2LayerBoard/cmsis_lib/source/stm32f4xx_usart.c">
 <persistable path="/stm32f4_2LayerBoard/cmsis_lib/source/stm32f4xx_usart.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx_gpio.c" tooltip="stm32f4_2LayerBoard/cmsis_lib/source/stm32f4xx_gpio.c">
-<persistable path="/stm32f4_2LayerBoard/cmsis_lib/source/stm32f4xx_gpio.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="usart.c" tooltip="stm32f4_2LayerBoard/usart.c">
-<persistable path="/stm32f4_2LayerBoard/usart.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stm32f4xx.h" tooltip="stm32f4_2LayerBoard/cmsis_boot/stm32f4xx.h">
-<persistable path="/stm32f4_2LayerBoard/cmsis_boot/stm32f4xx.h"/>
 </file>
 </mruList>
 </workbench>

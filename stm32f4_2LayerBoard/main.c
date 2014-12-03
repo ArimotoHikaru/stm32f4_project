@@ -32,7 +32,7 @@ void init(void)
 	GPIO_InitStructure.GPIO_Speed 	= GPIO_Speed_100MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);//PA15
 
-	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_13 | GPIO_Pin_14;// | GPIO_Pin_15;
+	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);//PC13,14,15
 
 	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_3 | GPIO_Pin_14 | GPIO_Pin_15;
@@ -44,6 +44,7 @@ void init(void)
 	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_0 | GPIO_Pin_1;
 	GPIO_Init(GPIOH, &GPIO_InitStructure);//PH0,1
 	*/
+
 	//Setup SystickTimer
 	if (SysTick_Config(SystemCoreClock / 1000)){ColorfulRingOfDeath();}
 
@@ -87,6 +88,10 @@ void init(void)
 	USART3_Configuration();
 #endif
 
+#ifdef USE_CAN
+	CAN_Configuration();
+#endif
+
 #ifdef USE_PWM
 	TIM_pwm_Configuration();
 #endif
@@ -101,16 +106,33 @@ void init(void)
 int main(void)
 {
 	char str[50] = {0};
+	CanTxMsg can_tx_flame;
+	CanRxMsg can_rx_flame;
+
 	init();
 
-	TIM1->CCR1 = 839;
-	TIM1->CCR3 = 839;
-	TIM1->CCR4 = 839;
-	TIM2->CCR4 = 800;
-	TIM3->CCR3 = 500;
-	TIM3->CCR4 = 660;
-	TIM12->CCR1 = 100;
+	sprintf(str,"Hello! start CAN communication!\n\r");
+	VCP_send_str(str);
 
+	can_tx_flame.StdId 		= 0x001;//ID 11bit 0～0x7FF
+	can_tx_flame.ExtId		= 0x0;	//拡張フレームID 28bit 0～0x1FFFFFFF
+	can_tx_flame.IDE 		= 0;	//拡張フレームIDを使う場合1
+	can_tx_flame.RTR		= 0;	//データフレーム:0 リモートフレーム:1
+	can_tx_flame.DLC		= 1;	//送信するデータフィールドのバイト数
+	can_tx_flame.Data[0]	= 0xCD;	//送信するデータフィールド
+
+	CAN_Transmit(CAN1, &can_tx_flame);//送信
+
+	GPIOD->BSRRL = GPIO_Pin_13;
+
+	ticker = 0;
+	while(ticker<50);
+
+	GPIOD->BSRRL = GPIO_Pin_14;
+
+	CAN_Receive(CAN1, CAN_FIFO0, &can_rx_flame);//受信
+
+	GPIOD->BSRRL = GPIO_Pin_15;
 
     while(1)
     {
@@ -118,7 +140,7 @@ int main(void)
     	while(ticker > 50){
     		ticker = 0;
 
-    		sprintf(str,"hello\n\r");
+    		sprintf(str,"0x%X\n\r",can_tx_flame.Data[0]);
     		//transmit_uart3_s(str);
     		VCP_send_str(str);
     	}

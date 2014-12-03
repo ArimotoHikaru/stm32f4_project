@@ -43,7 +43,7 @@
 #define DEBUG_2
 #define DEBUG_3
 
-//#define USE_MICROUSB
+#define USE_MICROUSB
 
 //#define USE_USART1
 //#define USE_INTERRUPT_USART1
@@ -66,10 +66,15 @@
 //#define USE_INTERRUPT_TIM8_13
 
 //#define USE_ADC
+
 //#define USE_SDIO
+
+#define USE_CAN
+//#define USE_INTERRUPT_CAN
+
 //#define USE_PWM
 
-#define USE_EXTI
+//#define USE_EXTI
 
 enum {
   I2C_STATE_START = 0,
@@ -95,14 +100,17 @@ enum {
 #include "stm32f4xx_sdio.h"
 #include "stm32f4xx_spi.h"
 #include "stm32f4xx_exti.h"
+#include "stm32f4_discovery.h"
+#include "stm32f4xx_i2c.h"
+#include "stm32f4xx_can.h"
 //user_hedder
 #include "adc.h"
 #include "tim_pwm.h"
 #include "usart.h"
 #include "tim_encoder.h"
 #include "stm32_ub_fatfs.h"
-#include "stm32f4_discovery.h"
-#include "stm32f4xx_i2c.h"
+#include "can.h"
+
 
 
 //マイクロusbで必要
