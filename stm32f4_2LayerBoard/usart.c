@@ -2,7 +2,7 @@
 
 #define USART1_BAUDRATE 19200
 #define USART2_BAUDRATE 19200
-#define USART3_BAUDRATE 19200
+#define USART3_BAUDRATE 115200
 
 //#define USART1_TxBufferSize  200//リングバッファの要素数
 #define USART1_RxBufferSize  200//リングバッファの要素数

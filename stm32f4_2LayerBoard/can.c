@@ -19,12 +19,13 @@ void CAN_Configuration(void)
 	/* Define gpio_config ---------------------------------------------------*/
 	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_0 | GPIO_Pin_1;
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_Speed 	= GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_OType 	= GPIO_OType_PP;
 	GPIO_InitStructure.GPIO_PuPd 	= GPIO_PuPd_UP;
-	GPIO_InitStructure.GPIO_Speed 	= GPIO_Speed_2MHz;
 	GPIO_Init(GPIOD, &GPIO_InitStructure);
 
-	GPIO_PinAFConfig(GPIOD, GPIO_PinSource0, GPIO_AF_CAN1);
-	GPIO_PinAFConfig(GPIOD, GPIO_PinSource1, GPIO_AF_CAN1);
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource0, GPIO_AF_CAN1);//Rx
+	GPIO_PinAFConfig(GPIOD, GPIO_PinSource1, GPIO_AF_CAN1);//Tx
 
 	/* Set up CAN function -------------------------------------------------*/
 	/* タイムトリガ通信モードの有効化・無効化を設定する */
@@ -45,7 +46,7 @@ void CAN_Configuration(void)
 	/* 送信FIFOの送信順序を指定する。DISABLE:メッセージIDで送信順序が決定される  ENABLE:ソフトウェアで送信要求が発生された順番で送信される */
 	CAN_InitStructure.CAN_TXFP 		= DISABLE;
 
-	/* Initialize the CAN_Mode member */
+	/* CANのModeを設定する */
 	CAN_InitStructure.CAN_Mode 		= CAN_Mode_LoopBack;
 
 	/* 再同期ジャンプ幅(CANハードウェアが再同期を行う際のビット幅)を時間単位の数で設定する */
@@ -63,13 +64,16 @@ void CAN_Configuration(void)
 	CAN_Init(CAN1, &CAN_InitStructure);
 
 	/* Set up CAN Filter function -------------------------------------------------*/
+	/* 設定するフィルターナンバー 0～13*/
 	CAN_FilterInitStructure.CAN_FilterNumber			= 0;
 
-	CAN_FilterInitStructure.CAN_FilterMode				= CAN_FilterMode_IdMask;
+	/* フィルターモード設定 */
+	CAN_FilterInitStructure.CAN_FilterMode				= CAN_FilterMode_IdList;
 
-	CAN_FilterInitStructure.CAN_FilterScale				= CAN_FilterScale_32bit;
+	/* フィルタースケール設定  16bit or 32bit*/
+	CAN_FilterInitStructure.CAN_FilterScale				= CAN_FilterScale_16bit;
 
-	CAN_FilterInitStructure.CAN_FilterIdHigh			= 0x0000;
+	CAN_FilterInitStructure.CAN_FilterIdHigh			= 0x01E0;
 
 	CAN_FilterInitStructure.CAN_FilterIdLow				= 0x0000;
 
@@ -79,15 +83,20 @@ void CAN_Configuration(void)
 
 	CAN_FilterInitStructure.CAN_FilterFIFOAssignment	= 0;
 
-	CAN_FilterInitStructure.CAN_FilterActivation		= DISABLE;
+	CAN_FilterInitStructure.CAN_FilterActivation		= ENABLE;
 
 	CAN_FilterInit(&CAN_FilterInitStructure);
 
-	//CAN_ITConfig(CAN_IT_FOV0, ENABLE);
+#ifdef USE_INTERRUPT_CAN
+	//CAN_ITConfig(CAN1, CAN_IT_TME, ENABLE);
+	CAN_ITConfig(CAN1, CAN_IT_FMP0,ENABLE);
+#endif
 
 }
 
-void CAN1_TX_IRQHandler(void);
-void CAN1_RX0_IRQHandler(void);
-void CAN1_RX1_IRQHandler(void);
-void CAN1_SCE_IRQHandler(void);
+void CAN1_TX_IRQHandler(void)
+{
+	//GPIOD->BSRRL = GPIO_Pin_13;
+}
+
+
