@@ -71,7 +71,7 @@
 
 #define USE_CAN
 #define USE_INTERRUPT_CAN_RX
-//#define	USE_INTERRUPT_CAN_TX
+//#define USE_INTERRUPT_CAN_TX
 
 //#define USE_PWM
 
@@ -104,7 +104,8 @@ enum {
 #include "stm32f4_discovery.h"
 #include "stm32f4xx_i2c.h"
 #include "stm32f4xx_can.h"
-//user_hedder
+
+/* user_hedder --------------------------------------------------------------*/
 #include "adc.h"
 #include "tim_pwm.h"
 #include "usart.h"
@@ -120,6 +121,58 @@ enum {
  * the alignment, if necessary (it's actually magic, but don't tell anyone).
  */
 __ALIGN_BEGIN USB_OTG_CORE_HANDLE  USB_OTG_dev __ALIGN_END;
+
+
+#define CAN_NodeId_Dualshock3	0x003	//0x00~0x1F
+#define CAN_NodeId_STM32F4_1	0x0F
+
+//Dualshock3のデータ解析用
+//この列挙型の値はArduino側の設定と合わせる
+enum {
+	start = 'a',
+	select,
+	left_x,
+	left_y,
+	right_x,
+	right_y,
+	L1,L2,
+	R1,R2,
+	Triangle,
+	Circle,
+	Cross,
+	Square,
+	Up,
+	Right,
+	Down,
+	Left,
+}Mnemonic;
+
+typedef struct _Button{
+	uint8_t	value;
+}Button;
+
+typedef struct _DualshockBotton{
+	Button	start,
+			select,
+			left_x,
+			left_y,
+			right_x,
+			right_y,
+			L1,
+			L2,
+			R1,
+			R2,
+			Triangle,
+			Circle,
+			Cross,
+			Square,
+			Up,
+			Right,
+			Down,
+			Left;
+}DualshockBotton;
+
+
 
 
 /* Exported types ------------------------------------------------------------*/

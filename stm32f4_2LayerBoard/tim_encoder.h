@@ -10,5 +10,5 @@
 #include "main.h"
 
 void TIM_encoder_Configuration(void);
-
+void TIM12_encoder_Configuration(void);
 #endif
