@@ -140,11 +140,6 @@ void init(void)
 	NVIC_Configuration();
 }
 
-void CAN_transmit_List(){
-
-}
-
-
 void CAN_Node_Check(CanRxMsg* RxMessage)
 {
 	uint8_t id = RxMessage->StdId & 0x1F;
@@ -160,8 +155,10 @@ void CAN_Node_Check(CanRxMsg* RxMessage)
 		//CAN_Receive_Dualshock3(&RxMessage);
 		for(i=0; i<RxMessage->DLC; i++){
 
-				switch(RxMessage->Data[i]){	//i=key i+1=value
+				switch(RxMessage->Data[i]){	//i=key i+1=value //i+2=#
 
+//				case  key:		psbutton.key.value		= RxMessage->Data[i+1];
+//					break;
 				case start: 	psbutton.start.value 	= RxMessage->Data[i+1];
 					break;
 				case select:	psbutton.select.value 	= RxMessage->Data[i+1];
@@ -206,10 +203,6 @@ void CAN_Node_Check(CanRxMsg* RxMessage)
 		break;
 	case CAN_NodeId_STM32F4_1:
 
-
-
-
-
 		break;
 
 	default:
@@ -218,27 +211,51 @@ void CAN_Node_Check(CanRxMsg* RxMessage)
 	}
 }
 
-void CAN1_TX_IRQHandler(void)
+/* * * * * * *
+ *  N E W !
+ * * * * * * */
+//入力0：送信するフレームのListを作る
+//出力1：Listの次のフレームを変数に格納する
+void CAN_Transmit_List_Stack(uint8_t io, CanTxMsg* TxMessage)
 {
-	if (CAN_GetITStatus(CAN1,CAN_IT_TME)){//メールボックスが空になったら呼び出される　何も送ってない状態では呼び出されない
-		GPIOD->BSRRL = GPIO_Pin_14;
-		CAN_Transmit(CAN1, &can_tx_flame);//送信
-		CAN_ClearITPendingBit(CAN1,CAN_IT_TME);
+	static uint8_t index = 0;
+	static uint8_t index_top = 0;
+
+	if(io == 1){//出力の場合
+		*TxMessage = can_tx_list[index];
+
+		index++;
+
+		if(index >= index_top){
+			index = 0;
+		}
+	}else if(io == 0){//入力の場合
+		can_tx_list[index_top] = *TxMessage;
+		index_top++;
 	}
 }
-
-
 /*
 void CAN1_TX_IRQHandler(void)
 {
 	if (CAN_GetITStatus(CAN1,CAN_IT_TME)){//メールボックスが空になったら呼び出される　何も送ってない状態では呼び出されない
 		GPIOD->BSRRL = GPIO_Pin_14;
-		can_tx_flame = CAN_transmit_list();
 		CAN_Transmit(CAN1, &can_tx_flame);//送信
 		CAN_ClearITPendingBit(CAN1,CAN_IT_TME);
 	}
 }
- */
+*/
+//↑今までの割込み関数
+//↓今回変更した割込み関数
+void CAN1_TX_IRQHandler(void)
+{
+	if (CAN_GetITStatus(CAN1,CAN_IT_TME)){//メールボックスが空になったら呼び出される　何も送ってない状態では呼び出されない
+		GPIOD->BSRRL = GPIO_Pin_14;
+		CAN_Transmit_List_Stack(1,&can_tx_flame);//can_tx_flameに次に送るデータを格納する
+		CAN_Transmit(CAN1, &can_tx_flame);//送信
+		CAN_ClearITPendingBit(CAN1,CAN_IT_TME);
+	}
+}
+
 
 void CAN1_RX0_IRQHandler(void)
 {
@@ -253,53 +270,8 @@ void CAN1_SCE_IRQHandler(void)//Status Change Error Interrupt
 {
 
 }
-/*
-void CAN_transmit_set(uint32_t stid, uint8_t ide, uint8_t rtr, uint8_t dlc, uint8_t *data)
-{
-	int size = (sizeof(data[0])/sizeof(data));
-	int i;
 
-	can_tx_flame.StdId 		= stid;//ID 11bit 0～0x7FF
-	can_tx_flame.IDE 		= ide;	//拡張フレームIDを使う場合1
-	can_tx_flame.RTR		= rtr;	//データフレーム:0 リモートフレーム:1
-	can_tx_flame.DLC		= dlc;	//送信するデータフィールドのバイト数
-
-	for(i=0; i<size; i++){
-		can_tx_flame.Data[i]	= data[i];	//送信するデータフィールド
-	}
-
-}
-
-void CAN_transmit_stack(uint32_t stid, uint8_t ide, uint8_t rtr, uint8_t dlc, uint8_t *data)
-{
-	int size = (sizeof(data[0])/sizeof(data));
-	int i;
-
-	can_tx_flame.StdId 		= stid;//ID 11bit 0～0x7FF
-	can_tx_flame.IDE 		= ide;	//拡張フレームIDを使う場合1
-	can_tx_flame.RTR		= rtr;	//データフレーム:0 リモートフレーム:1
-	can_tx_flame.DLC		= dlc;	//送信するデータフィールドのバイト数
-
-	for(i=0; i<size; i++){
-		can_tx_flame.Data[i]	= data[i];	//送信するデータフィールド
-	}
-
-}
-
-CanTxMsg CAN_transmit_list(void)
-{
-	static int f=0;
-
-	if(CANTABLEBUF == f){
-		f = 0;
-	}
-
-	return CanTxtable[f++];
-}
-*/
-
-
-//#define CAN_TX
+#define CAN_TX
 
 #ifdef CAN_TX
 //送信
@@ -319,6 +291,16 @@ int main(void)
 	can_tx_flame.Data[1]	= 0xAB;
 	can_tx_flame.Data[2]	= 0xAC;
 
+
+	CAN_Transmit_List_Stack(0, &can_tx_flame);//0x00AというIDのフレームをリストに追加
+	can_tx_flame.StdId 		= 0x00B;
+	CAN_Transmit_List_Stack(0, &can_tx_flame);//0x00BというIDのフレームをリストに追加
+	can_tx_flame.StdId 		= 0x00C;
+	CAN_Transmit_List_Stack(0, &can_tx_flame);//0x00CというIDのフレームをリストに追加
+	can_tx_flame.StdId 		= 0x00D;
+	CAN_Transmit_List_Stack(0, &can_tx_flame);//0x00DというIDのフレームをリストに追加
+
+	//以降割込みによって0x00Aから0x00Dのフレームが繰り返し送信される
 
 
 	while(ticker < 1000);

@@ -70,8 +70,8 @@
 //#define USE_SDIO
 
 #define USE_CAN
-#define USE_INTERRUPT_CAN_RX
-//#define USE_INTERRUPT_CAN_TX
+//#define USE_INTERRUPT_CAN_RX
+#define USE_INTERRUPT_CAN_TX
 
 //#define USE_PWM
 
