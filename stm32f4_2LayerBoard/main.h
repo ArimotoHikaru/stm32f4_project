@@ -70,8 +70,8 @@
 //#define USE_SDIO
 
 #define USE_CAN
-//#define USE_INTERRUPT_CAN_RX
-#define USE_INTERRUPT_CAN_TX
+#define USE_INTERRUPT_CAN_RX
+//#define USE_INTERRUPT_CAN_TX
 
 //#define USE_PWM
 
@@ -145,6 +145,7 @@ enum {
 	Right,
 	Down,
 	Left,
+	CError
 }Mnemonic;
 
 typedef struct _Button{
@@ -169,7 +170,8 @@ typedef struct _DualshockBotton{
 			Up,
 			Right,
 			Down,
-			Left;
+			Left,
+			CError;
 }DualshockBotton;
 
 

@@ -28,26 +28,31 @@
       <source file="..\..\..\usb_lib\otg\usb_dcd.h" lastModified="140da2cbde0">
          <include file="..\..\..\usb_lib\otg\usb_core.h"/>
       </source>
+      <source file="..\..\..\usb_lib\core\usbd_req.c" lastModified="140da2cbde0">
+         <include file="..\..\..\usb_lib\core\usbd_req.h"/>
+         <include file="..\..\..\usb_lib\core\usbd_ioreq.h"/>
+         <include file="..\..\..\usb_conf\usbd_desc.h"/>
+      </source>
       <source file="..\..\..\tim_pwm.h" lastModified="1498ab2ddee">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_tim.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
       </source>
-      <source file="..\..\..\usb_lib\core\usbd_req.c" lastModified="140da2cbde0">
-         <include file="..\..\..\usb_lib\core\usbd_req.h"/>
-         <include file="..\..\..\usb_lib\core\usbd_ioreq.h"/>
-         <include file="..\..\..\usb_conf\usbd_desc.h"/>
-      </source>
-      <source file="..\..\..\ub_lib\fatfs\ffconf.h" lastModified="13d256ad070">
-      </source>
       <source file="..\..\..\usb_lib\otg\usb_dcd.c" lastModified="140da2cbde0">
          <include file="..\..\..\usb_conf\usb_conf.h"/>
          <include file="..\..\..\usb_lib\otg\usb_dcd.h"/>
          <include file="..\..\..\usb_conf\usb_bsp.h"/>
       </source>
+      <source file="..\..\..\ub_lib\fatfs\ffconf.h" lastModified="13d256ad070">
+      </source>
       <source file="..\..\..\tim_pwm.c" lastModified="1499e1321a8">
          <include file="..\..\..\tim_pwm.h"/>
+      </source>
+      <source file="..\..\..\cmsis\core_cm4.h" lastModified="1498f0469ea">
+         <include file="..\..\..\cmsis\core_cmInstr.h"/>
+         <include file="..\..\..\cmsis\core_cmFunc.h"/>
+         <include file="..\..\..\cmsis\core_cm4_simd.h"/>
       </source>
       <source file="..\..\..\spi.h" lastModified="1498fc8bcc6">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
@@ -55,11 +60,6 @@
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
          <include file="..\..\..\cmsis_lib\include\misc.h"/>
-      </source>
-      <source file="..\..\..\cmsis\core_cm4.h" lastModified="1498f0469ea">
-         <include file="..\..\..\cmsis\core_cmInstr.h"/>
-         <include file="..\..\..\cmsis\core_cmFunc.h"/>
-         <include file="..\..\..\cmsis\core_cm4_simd.h"/>
       </source>
       <source file="..\..\..\cmsis_lib\source\stm32f4xx_i2c.c" lastModified="14986c15b53">
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_i2c.h"/>
@@ -147,18 +147,18 @@
          <include file="..\..\..\usb_conf\usb_conf.h"/>
          <include file="..\..\..\usb_lib\otg\usb_dcd_int.h"/>
       </source>
+      <source file="..\..\..\cmsis_lib\include\stm32f4xx_spi.h" lastModified="14986d3d57d">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+      </source>
+      <source file="..\..\..\cmsis_lib\include\stm32f4xx_dma.h" lastModified="14986c1a1f5">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+      </source>
       <source file="..\..\..\adc.h" lastModified="14985a45a13">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_adc.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_dma.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
-      </source>
-      <source file="..\..\..\cmsis_lib\include\stm32f4xx_spi.h" lastModified="14986d3d57d">
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-      </source>
-      <source file="..\..\..\cmsis_lib\include\stm32f4xx_dma.h" lastModified="14986c1a1f5">
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
       <source file="..\..\..\usb_lib\otg\usb_defines.h" lastModified="140da2cbde0">
          <include file="..\..\..\usb_conf\usb_conf.h"/>
@@ -191,20 +191,20 @@
       <source file="..\..\..\cmsis_boot\system_stm32f4xx.c" lastModified="1499e00caa4">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
+      <source file="..\..\..\nvic.c" lastModified="14a1d51ec18">
+         <include file="..\..\..\nvic.h"/>
+      </source>
       <source file="..\..\..\stm32f4_discovery_callbacks.c" lastModified="14986e3b271">
          <include file="..\..\..\STM32F4-Discovery\stm32f4_discovery.h"/>
       </source>
-      <source file="..\..\..\nvic.c" lastModified="14a1d51ec18">
-         <include file="..\..\..\nvic.h"/>
+      <source file="..\..\..\usb_lib\core\usbd_ioreq.c" lastModified="140da2cbde0">
+         <include file="..\..\..\usb_lib\core\usbd_ioreq.h"/>
       </source>
       <source file="..\..\..\ub_lib\fatfs\diskio.c" lastModified="13d254e6ed0">
          <include file="..\..\..\ub_lib\fatfs\diskio.h"/>
          <include file="..\..\..\ub_lib\fatfs\lo_level_ub\stm32_ub_usbdisk.h"/>
          <include file="..\..\..\ub_lib\fatfs\lo_level_ub\stm32_ub_atadrive.h"/>
          <include file="..\..\..\ub_lib\fatfs\lo_level_ub\stm32_ub_sdcard.h"/>
-      </source>
-      <source file="..\..\..\usb_lib\core\usbd_ioreq.c" lastModified="140da2cbde0">
-         <include file="..\..\..\usb_lib\core\usbd_ioreq.h"/>
       </source>
       <source file="..\..\..\usb_lib\core\usbd_core.h" lastModified="140da2cbde0">
          <include file="..\..\..\usb_lib\otg\usb_dcd.h"/>
@@ -248,8 +248,6 @@
          <include file="..\..\..\usb_lib\otg\usb_regs.h"/>
          <include file="..\..\..\usb_lib\otg\usb_defines.h"/>
       </source>
-      <source file="..\..\..\syscalls\syscalls.c" lastModified="14986c0e0b4">
-      </source>
       <source file="..\..\..\usb_conf\usb_bsp.c" lastModified="140da2cbde0">
          <include file="..\..\..\usb_conf\usb_bsp.h"/>
          <include file="..\..\..\usb_conf\usbd_conf.h"/>
@@ -259,6 +257,11 @@
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
          <include file="..\..\..\cmsis_lib\include\misc.h"/>
       </source>
+      <source file="..\..\..\syscalls\syscalls.c" lastModified="14986c0e0b4">
+      </source>
+      <source file="..\..\..\tim_encoder.c" lastModified="14a1e11a374">
+         <include file="..\..\..\tim_encoder.h"/>
+      </source>
       <source file="..\..\..\i2c.h" lastModified="1499da25b16">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_i2c.h"/>
@@ -266,9 +269,6 @@
          <include file="..\..\..\cmsis_lib\include\stm32f4xx_rcc.h"/>
          <include file="..\..\..\cmsis_lib\include\misc.h"/>
          <include file="..\..\..\main.h"/>
-      </source>
-      <source file="..\..\..\tim_encoder.c" lastModified="14a1e11a374">
-         <include file="..\..\..\tim_encoder.h"/>
       </source>
       <source file="..\..\..\usb_lib\otg\usb_core.c" lastModified="140da2cbde0">
          <include file="..\..\..\usb_lib\otg\usb_core.h"/>
@@ -284,10 +284,10 @@
       <source file="..\..\..\i2c.c" lastModified="1499da29cf1">
          <include file="..\..\..\i2c.h"/>
       </source>
-      <source file="..\..\..\cmsis\core_cmFunc.h" lastModified="140da2cc1c8">
-      </source>
-      <source file="..\..\..\can.c" lastModified="14aab5e9b38">
+      <source file="..\..\..\can.c" lastModified="14b15e2e3f9">
          <include file="..\..\..\can.h"/>
+      </source>
+      <source file="..\..\..\cmsis\core_cmFunc.h" lastModified="140da2cc1c8">
       </source>
       <source file="..\..\..\usb_lib\cdc\usbd_cdc_core.h" lastModified="140da2cbde0">
          <include file="..\..\..\usb_lib\core\usbd_ioreq.h"/>
@@ -398,15 +398,18 @@
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_i2c.h" lastModified="14986c15b44">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
-      <source file="..\..\..\cmsis_lib\include\stm32f4xx_can.h" lastModified="14986c21d73">
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-      </source>
       <source file="..\..\..\ub_lib\stm32_ub_fatfs.c" lastModified="145b5969d70">
          <include file="..\..\..\ub_lib\stm32_ub_fatfs.h"/>
+      </source>
+      <source file="..\..\..\cmsis_lib\include\stm32f4xx_can.h" lastModified="14986c21d73">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
       <source file="..\..\..\cmsis_boot\startup\startup_stm32f4xx.c" lastModified="140da2cbde0">
       </source>
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_gpio.h" lastModified="14986c108b3">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+      </source>
+      <source file="..\..\..\cmsis_lib\include\stm32f4xx_tim.h" lastModified="14986c1bd20">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
       <source file="..\..\..\usart.h" lastModified="1499d60f621">
@@ -417,10 +420,7 @@
          <include file="..\..\..\cmsis_lib\include\misc.h"/>
          <include file="..\..\..\main.h"/>
       </source>
-      <source file="..\..\..\cmsis_lib\include\stm32f4xx_tim.h" lastModified="14986c1bd20">
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
-      </source>
-      <source file="..\..\..\main.h" lastModified="14ac251762d">
+      <source file="..\..\..\main.h" lastModified="14b1ad948f4">
          <include file="..\..\..\cmsis_boot\stm32f4xx_conf.h"/>
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\stm32f4xx_it.h"/>
@@ -449,7 +449,7 @@
       <source file="..\..\..\usart.c" lastModified="14a14b31bcc">
          <include file="..\..\..\usart.h"/>
       </source>
-      <source file="..\..\..\main.c" lastModified="14ac2578a49">
+      <source file="..\..\..\main.c" lastModified="14b15e2e706">
          <include file="..\..\..\main.h"/>
       </source>
       <source file="..\..\..\usb_conf\usbd_usr.c" lastModified="140da2cbde0">
@@ -467,12 +467,12 @@
       <source file="..\..\..\cmsis_lib\include\stm32f4xx_dac.h" lastModified="14986e3b271">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
+      <source file="..\..\..\cmsis_lib\include\stm32f4xx_sdio.h" lastModified="14986c20920">
+         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
+      </source>
       <source file="..\..\..\ub_lib\fatfs\lo_level_ub\stm32_ub_atadrive.h" lastModified="13d28c70b30">
          <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
          <include file="..\..\..\ub_lib\fatfs\diskio.h"/>
-      </source>
-      <source file="..\..\..\cmsis_lib\include\stm32f4xx_sdio.h" lastModified="14986c20920">
-         <include file="..\..\..\cmsis_boot\stm32f4xx.h"/>
       </source>
    </includePath>
 </dependencies>

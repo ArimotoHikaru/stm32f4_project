@@ -11,11 +11,11 @@ CanRxMsg can_rx_flame;
 CanTxMsg can_tx_list[CAN_LIST_BUF];
 CanRxMsg can_rx_list[CAN_LIST_BUF];
 
-
 int can_tx_count = 0;
 
 
 DualshockBotton psbutton = {
+		{0},
 		{0},
 		{0},
 		{0},
@@ -47,18 +47,16 @@ void XXX_Configuration(void)
 	/* Set up XXX_function --------------------------------------------------*/
 }
 
-void init(void)
+void GPIO_Configuration(void)
 {
-	SystemInit();
-
 	GPIO_InitTypeDef GPIO_InitStructure;
 
 	RCC_AHB1PeriphClockCmd( RCC_AHB1Periph_GPIOA |
-//							RCC_AHB1Periph_GPIOC |
+	//						RCC_AHB1Periph_GPIOC |
 							RCC_AHB1Periph_GPIOD
-//							RCC_AHB1Periph_GPIOE |
-//							RCC_AHB1Periph_GPIOH
-							, ENABLE);
+	//						RCC_AHB1Periph_GPIOE |
+	//						RCC_AHB1Periph_GPIOH
+							,ENABLE);
 
 	GPIO_InitStructure.GPIO_Pin 	= GPIO_Pin_0;
 	GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_IN;
@@ -83,8 +81,15 @@ void init(void)
 	GPIO_Init(GPIOH, &GPIO_InitStructure);//PH0,1
 	*/
 
+}
+
+void init(void)
+{
+	SystemInit();
 	//Setup SystickTimer
 	if (SysTick_Config(SystemCoreClock / 1000)){ColorfulRingOfDeath();}
+
+	GPIO_Configuration();
 
 #ifdef USE_MICROUSB
 	USBD_Init(&USB_OTG_dev,
@@ -153,7 +158,7 @@ void CAN_Node_Check(CanRxMsg* RxMessage)
 		can_tx_count++;
 
 		//CAN_Receive_Dualshock3(&RxMessage);
-		for(i=0; i<RxMessage->DLC; i++){
+		for(i=0; i<=RxMessage->DLC; i += 2){
 
 				switch(RxMessage->Data[i]){	//i=key i+1=value //i+2=#
 
@@ -198,7 +203,6 @@ void CAN_Node_Check(CanRxMsg* RxMessage)
 				default:
 					break;
 				}
-				i +=2;
 			}
 		break;
 	case CAN_NodeId_STM32F4_1:
@@ -211,9 +215,8 @@ void CAN_Node_Check(CanRxMsg* RxMessage)
 	}
 }
 
-/* * * * * * *
- *  N E W !
- * * * * * * */
+
+//ioの値で機能変更
 //入力0：送信するフレームのListを作る
 //出力1：Listの次のフレームを変数に格納する
 void CAN_Transmit_List_Stack(uint8_t io, CanTxMsg* TxMessage)
@@ -250,7 +253,7 @@ void CAN1_TX_IRQHandler(void)
 {
 	if (CAN_GetITStatus(CAN1,CAN_IT_TME)){//メールボックスが空になったら呼び出される　何も送ってない状態では呼び出されない
 		GPIOD->BSRRL = GPIO_Pin_14;
-		CAN_Transmit_List_Stack(1,&can_tx_flame);//can_tx_flameに次に送るデータを格納する
+		//CAN_Transmit_List_Stack(1,&can_tx_flame);//can_tx_flameに次に送るデータを格納する
 		CAN_Transmit(CAN1, &can_tx_flame);//送信
 		CAN_ClearITPendingBit(CAN1,CAN_IT_TME);
 	}
@@ -261,9 +264,8 @@ void CAN1_RX0_IRQHandler(void)
 {
 	if (CAN_GetITStatus(CAN1,CAN_IT_FMP0)){//新しいメッセージを受信したら呼び出される
 		CAN_Receive(CAN1, CAN_FIFO0, &can_rx_flame);//受信
-		GPIOD->BSRRL = GPIO_Pin_14;
+		GPIOD->BSRRL = GPIO_Pin_15;
 		CAN_Node_Check(&can_rx_flame);
-//		CAN_Receive_Dualshock3(&can_rx_flame);
 	}
 }
 void CAN1_SCE_IRQHandler(void)//Status Change Error Interrupt
@@ -271,7 +273,7 @@ void CAN1_SCE_IRQHandler(void)//Status Change Error Interrupt
 
 }
 
-#define CAN_TX
+//#define CAN_TX
 
 #ifdef CAN_TX
 //送信
@@ -282,45 +284,30 @@ int main(void)
 
 	init();
 
-	can_tx_flame.StdId 		= 0x00A;//ID 11bit 0～0x7FF
+	can_tx_flame.StdId 		= 0x500;//ID 11bit 0～0x7FF
 	can_tx_flame.ExtId		= 0x0;	//拡張フレームID 29bit 0～0x1FFFFFFF
 	can_tx_flame.IDE 		= 0;	//拡張フレームIDを使う場合1
 	can_tx_flame.RTR		= 0;	//データフレーム:0 リモートフレーム:1
-	can_tx_flame.DLC		= 3;	//送信するデータフィールドのバイト数 0~8
-	can_tx_flame.Data[0]	= 0xAA;	//送信するデータフィールド
-	can_tx_flame.Data[1]	= 0xAB;
-	can_tx_flame.Data[2]	= 0xAC;
+	can_tx_flame.DLC		= 1;	//送信するデータフィールドのバイト数 0~8
+	can_tx_flame.Data[0]	= start;	//送信するデータフィールド
 
 
 	CAN_Transmit_List_Stack(0, &can_tx_flame);//0x00AというIDのフレームをリストに追加
+	/*
 	can_tx_flame.StdId 		= 0x00B;
 	CAN_Transmit_List_Stack(0, &can_tx_flame);//0x00BというIDのフレームをリストに追加
 	can_tx_flame.StdId 		= 0x00C;
 	CAN_Transmit_List_Stack(0, &can_tx_flame);//0x00CというIDのフレームをリストに追加
 	can_tx_flame.StdId 		= 0x00D;
 	CAN_Transmit_List_Stack(0, &can_tx_flame);//0x00DというIDのフレームをリストに追加
-
+	*/
 	//以降割込みによって0x00Aから0x00Dのフレームが繰り返し送信される
 
 
-	while(ticker < 1000);
-
-	//CAN_Transmit(CAN1, &can_tx_flame);//送信
+	while(ticker < 500);
 
 	GPIOD->BSRRL = GPIO_Pin_12;
 
-	//while(CANTXOK != CAN_TransmitStatus(CAN1,0));
-
-	//GPIOD->BSRRL = GPIO_Pin_13;
-/*
-	while(0 == CAN_MessagePending(CAN1, CAN_FIFO0));
-
-	GPIOD->BSRRL = GPIO_Pin_14;
-
-	CAN_Receive(CAN1, CAN_FIFO0, &can_rx_flame);//受信
-
-	GPIOD->BSRRL = GPIO_Pin_15;
-*/
 	CAN_Transmit(CAN1, &can_tx_flame);//送信
 
     while(1)
@@ -330,12 +317,6 @@ int main(void)
     		ticker = 0;
 
     		if(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0) == SET){
-/*
-    			can_tx_flame.Data[0]	= can_tx_flame.Data[0] + 1;
-    			if(can_tx_flame.Data[0]>0xFF){
-    				can_tx_flame.Data[0] = 0x00;
-    			}
-*/
     			GPIOD->BSRRH = GPIO_Pin_13;
 #ifndef USE_INTERRUPT_CAN_TX
     			CAN_Transmit(CAN1, &can_tx_flame);//送信
@@ -346,15 +327,15 @@ int main(void)
     			GPIOD->BSRRL = GPIO_Pin_13;
     		}
 
-    		sprintf(str,"StId:0x%X \n\rIDE:%d \n\rRTR:%d \n\rDLC:%X \n\rData[0]:0x%X \n\rRerror:%d \n\rTerror:%d\n\r\n"
+    		sprintf(str,"StId:0x%X \n\rIDE:%d \n\rRTR:%d \n\rDLC:%X \n\rData[0]:0x%X \n\rRerror:%d \n\rTerror:%d \n\rStart:%X\r\n"
     											,can_tx_flame.StdId
     											,can_tx_flame.IDE
     											,can_tx_flame.RTR
     											,can_tx_flame.DLC
     											,can_tx_flame.Data[0]
-    											//,can_tx_flame.FMI
     											,CAN_GetReceiveErrorCounter(CAN1)
-    											,CAN_GetLSBTransmitErrorCounter(CAN1));
+    											,CAN_GetLSBTransmitErrorCounter(CAN1)
+    											,psbutton.start.value);
 
     		transmit_uart3_s(str);
 
@@ -371,36 +352,6 @@ int main(void)
 	init();
 
 	GPIOD->BSRRL = GPIO_Pin_12;
-
-/*
-	can_tx_flame.StdId 		= 0x00F;//ID 11bit 0～0x7FF
-	can_tx_flame.ExtId		= 0x0;	//拡張フレームID 28bit 0～0x1FFFFFFF
-	can_tx_flame.IDE 		= 0;	//拡張フレームIDを使う場合1
-	can_tx_flame.RTR		= 0;	//データフレーム:0 リモートフレーム:1
-	can_tx_flame.DLC		= 1;	//送信するデータフィールドのバイト数
-	can_tx_flame.Data[0]	= 0xCC;	//送信するデータフィールド
-
-	ticker = 0;
-	while(ticker<1000);
-
-	CAN_Transmit(CAN1, &can_tx_flame);//送信
-
-	GPIOD->BSRRL = GPIO_Pin_12;
-
-	while(CANTXOK != CAN_TransmitStatus(CAN1,0));
-
-	GPIOD->BSRRL = GPIO_Pin_13;
-
-	while(0 == CAN_MessagePending(CAN1, CAN_FIFO0));
-
-	GPIOD->BSRRL = GPIO_Pin_14;
-
-	CAN_Receive(CAN1, CAN_FIFO0, &can_rx_flame);//受信
-
-	GPIOD->BSRRL = GPIO_Pin_15;
-	*/
-
-
 
 	sprintf(str,"Start CAN!\n\r");
 	transmit_uart3_s(str);
@@ -446,6 +397,7 @@ int main(void)
     											,can_rx_flame.FMI
     											,CAN_GetReceiveErrorCounter(CAN1)
     											,CAN_GetLSBTransmitErrorCounter(CAN1));
+
 
 /*
     		sprintf(str," start:%X\n\r select:%X\n\r left_x:%X\n\r left_y:%X\n\r right_x:%X\n\r right_y:%X\n\r L1:%X\n\r L2:%X\n\r R1:%X\n\r R2:%X\n\r Tri:%X\n\r Cir:%X\n\r Cro:%X\n\r Squ:%X\n\r Up:%X\n\r Right:%X\n\r Dow:%X\n\r left:%X\n\r CAN_C:%d\n\r"

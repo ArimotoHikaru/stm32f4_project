@@ -18,10 +18,10 @@ typedef struct _CAN_f{
 
 CAN_f CAN_fm[14]={
 //FNE	MODE	SCALE	STID    				RTR 		IDE			EXID
- {1,	LIST,   BIT16,	{0x00,0x0A,0x0B,0x0C},	{0,0,0,0},	{0,0,0,0},	{0,0,0,0}	},//0
- {1,	MASK,   BIT16,	{0x0D,0x0E,0x0F,0x0A},	{0,0,0,0},	{0,0,0,0},	{0,0,0,0}	},//1
- {1,	LIST,   BIT32,	{0x00,0x00},			{0,0},		{0,0},		{0,0}		},//2
- {1,	MASK,   BIT32,	{0x00,0x00},			{0,0},		{0,0},		{0,0}		},//3
+ {1,	LIST,   BIT16,	{0x03,0x0A,0x0B,0x0C},	{0,0,0,0},	{0,0,0,0},	{0,0,0,0}	},//0
+ {1,	MASK,   BIT16,	{0x00,0x0E,0x0F,0x0A},	{0,0,0,0},	{0,0,0,0},	{0,0,0,0}	},//1
+ {0,	LIST,   BIT32,	{0x00,0x00},			{0,0},		{0,0},		{0,0}		},//2
+ {0,	MASK,   BIT32,	{0x00,0x00},			{0,0},		{0,0},		{0,0}		},//3
  {0,	LIST,   BIT16,	{0x00,0x0A,0x0B,0x0C},	{0,0,0,0},	{0,0,0,0},	{0,0,0,0}	},//4
  {0,	LIST,   BIT16,	{0x00,0x0A,0x0B,0x0C},	{0,0,0,0},	{0,0,0,0},	{0,0,0,0}	},//5
  {0,	LIST,   BIT16,	{0x00,0x0A,0x0B,0x0C},	{0,0,0,0},	{0,0,0,0},	{0,0,0,0}	},//6
@@ -35,7 +35,6 @@ CAN_f CAN_fm[14]={
 };
 /* ↑の説明
  *　FNE:そのフィルターを使うか否か
- *
  * STID、RTR、IDE,EXIDの配列[0][1][2][3]は
  * LIST,BIT16のとき	[0]:filter 	[1]:filter		[2]:filter 	[3]:filter
  * MASK,BIT16のとき	[0]:filter 	[1]:[0]のmask  	[2]:filter 	[3]:[2]のmask
@@ -111,6 +110,31 @@ void CAN_Configuration(void)
 	CAN_Init(CAN1, &CAN_InitStructure);
 
 	/* Set up CAN Filter function -------------------------------------------------*/
+#if 0
+	/* 設定するフィルターナンバー 0～13*/
+	CAN_FilterInitStructure.CAN_FilterNumber			= 0;
+
+	/* フィルターモード設定 */
+	CAN_FilterInitStructure.CAN_FilterMode				= CAN_FilterMode_IdMask;
+
+	/* フィルタースケール設定  16bit or 32bit*/
+	CAN_FilterInitStructure.CAN_FilterScale				= CAN_FilterScale_16bit;
+
+	CAN_FilterInitStructure.CAN_FilterIdHigh			= 0x0000;//2
+
+	CAN_FilterInitStructure.CAN_FilterIdLow				= 0x0000;//0
+
+	CAN_FilterInitStructure.CAN_FilterMaskIdHigh		= 0x0000;//3
+
+	CAN_FilterInitStructure.CAN_FilterMaskIdLow			= 0x0000;//1
+
+	CAN_FilterInitStructure.CAN_FilterFIFOAssignment	= 0;
+
+	CAN_FilterInitStructure.CAN_FilterActivation		= ENABLE;
+
+	CAN_FilterInit(&CAN_FilterInitStructure);
+#endif
+
 	while(filter_num < 14){//フィルターの数だけ繰り返す0~13
 
 		CAN_FilterInitStructure.CAN_FilterNumber = filter_num;
@@ -121,7 +145,7 @@ void CAN_Configuration(void)
 
 			CAN_FilterInitStructure.CAN_FilterActivation = ENABLE;
 
-			if(CAN_fm[filter_num].MODE == MASK){/* フィルターモード設定 */
+			if(CAN_fm[filter_num].MODE == MASK){// フィルターモード設定
 				CAN_FilterInitStructure.CAN_FilterMode	= CAN_FilterMode_IdMask;
 			}else if(CAN_fm[filter_num].MODE == LIST){
 				CAN_FilterInitStructure.CAN_FilterMode	= CAN_FilterMode_IdList;
@@ -179,7 +203,6 @@ void CAN_Configuration(void)
 
 		filter_num++;
 	}
-
 
 #ifdef USE_INTERRUPT_CAN_RX
 	CAN_ITConfig(CAN1, CAN_IT_FMP0,ENABLE);//message pending Interrupt
